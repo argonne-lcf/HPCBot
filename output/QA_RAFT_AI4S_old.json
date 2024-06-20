@@ -1,0 +1,775 @@
+[
+    {
+        "id": "seed_task_0_0",
+        "question": "1. What is RAFT and how does it improve language models?",
+        "oracle_context": "Preprint, Under Review\nRAFT: Adapting Language Model to Domain Specific RAG\nTianjun Zhang∗\nDepartment of Computer Science\nUC Berkeley\nBerkeley, CA 94720, USA\n{tianjunz}@berkeley.eduShishir G. Patil, Naman Jain, Sheng Shen\nDepartment of Computer Science\nUC Berkeley\nBerkeley, CA 94720, USA\n{shishirpatil,naman_jain,sheng.s}@berkeley.edu\nMatei Zaharia, Ion Stoica, Joseph E. Gonzalez\nDepartment of Computer Science\nUC Berkeley\nBerkeley, CA 94720, USA\n{matei,istoica,jegonzal}@berkeley.edu\nAbstract\nPretraining Large Language Models (LLMs) on large corpora of textual\ndata is now a standard paradigm. When using these LLMs for many\ndownstream applications, it is common to additionally incorporate new in-\nformation into the pretrained model either through RAG-based-prompting,\nor finetuning. However, the best methodology to incorporate information\nremains an open question. In this paper, we present Retrieval Augmented\nFine Tuning (RAFT), a training recipe which improves the model’s ability",
+        "correct_answer": "Note: The answer is based on the provided context and may not be an exhaustive or definitive explanation of RAFT's capabilities.",
+        "incorrect_answer": [
+            "1. RAFT stands for \"Revolutionary Artificial Fuzzy Thinking\" and it improves language models by allowing them to think more creatively.",
+            "",
+            "2. RAFT is a type of neural network that uses rainforest imagery to enhance the model's understanding of complex texts.",
+            "",
+            "3. RAFT is an acronym for \"Repetitive Audio Frequency Tuning\", which involves using sound waves to adjust the language model's tuning forks, thus improving its accuracy.",
+            "",
+            "4. RAFT is a new form of culinary art, and it improves language models by adding flavorful ingredients to the neural networks, making them more palatable to humans."
+        ]
+    },
+    {
+        "id": "seed_task_0_1",
+        "question": "2. How does RAFT incorporate information into pre-trained language models?",
+        "oracle_context": "Preprint, Under Review\nRAFT: Adapting Language Model to Domain Specific RAG\nTianjun Zhang∗\nDepartment of Computer Science\nUC Berkeley\nBerkeley, CA 94720, USA\n{tianjunz}@berkeley.eduShishir G. Patil, Naman Jain, Sheng Shen\nDepartment of Computer Science\nUC Berkeley\nBerkeley, CA 94720, USA\n{shishirpatil,naman_jain,sheng.s}@berkeley.edu\nMatei Zaharia, Ion Stoica, Joseph E. Gonzalez\nDepartment of Computer Science\nUC Berkeley\nBerkeley, CA 94720, USA\n{matei,istoica,jegonzal}@berkeley.edu\nAbstract\nPretraining Large Language Models (LLMs) on large corpora of textual\ndata is now a standard paradigm. When using these LLMs for many\ndownstream applications, it is common to additionally incorporate new in-\nformation into the pretrained model either through RAG-based-prompting,\nor finetuning. However, the best methodology to incorporate information\nremains an open question. In this paper, we present Retrieval Augmented\nFine Tuning (RAFT), a training recipe which improves the model’s ability",
+        "correct_answer": "<ANSWER>: RAFT incorporates information into pre-trained language models through Retrieval Augmented Fine Tuning (RAFT), which involves retrieving relevant data from a specific domain or task and then fine-tuning the pre-trained model using this retrieved data.",
+        "incorrect_answer": [
+            "1. RAFT incorporates information into pre-trained language models by adding emojis to the input text.",
+            "",
+            "2. RAFT uses a complex algorithm involving the mating rituals of rare, nocturnal animals to adapt language models to specific domains.",
+            "",
+            "3. RAFT involves creating a physical replica of the target domain and then placing it in front of a trained AI model that tries to imitate the domain's sounds.",
+            "",
+            "4. RAFT simply tells pre-trained language models to imagine they are a particular type of tree species and then adjusts their responses based on that."
+        ]
+    },
+    {
+        "id": "seed_task_1_0",
+        "question": "1. What is RAFT's goal?",
+        "oracle_context": "to answer questions in \"open-book\" in-domain settings. In training RAFT,\ngiven a question, and a set of retrieved documents, we train the model to\nignore those documents that don’t help in answering the question, which\nwe call, distractor documents. RAFT accomplishes this by citing verbatim\nthe right sequence from the relevant document to help answer the question.\nThis coupled with RAFT’s chain-of-thought-style response helps improve\nthe model’s ability to reason. In domain specific RAG, RAFT consistently\nimproves the model’s performance across PubMed, HotpotQA, and Gorilla\ndatasets, presenting a post-training recipe to improve pre-trained LLMs to\nin-domain RAG.\n1 Introduction\nTrained on vast quantities of public data, Large Language Models LLMs have achieved\nsignificant advances in a wide range of general knowledge reasoning tasks Brown et al.\n(2020); Wei et al. (2022). However, increasingly LLMs are being employed in specialized",
+        "correct_answer": "<ANSWER>: RAFT's goal is to provide accurate answers by citing relevant information from the correct documents.",
+        "incorrect_answer": [
+            "1. RAFT's goal is to translate languages.",
+            "2. RAFT's goal is to predict the weather.",
+            "3. RAFT's goal is to generate art based on given prompts.",
+            "4. RAFT's goal is to analyze and visualize astronomical data.",
+            "",
+            "Note: These answers are intentionally incorrect and do not reflect the actual goals of the RAFT model, which is described in the provided context as being focused on answering questions by ignoring distractor documents and citing relevant sequences from retrieved documents to improve reasoning abilities."
+        ]
+    },
+    {
+        "id": "seed_task_1_1",
+        "question": "2. What kind of tasks do Large Language Models achieve significant advances in?",
+        "oracle_context": "to answer questions in \"open-book\" in-domain settings. In training RAFT,\ngiven a question, and a set of retrieved documents, we train the model to\nignore those documents that don’t help in answering the question, which\nwe call, distractor documents. RAFT accomplishes this by citing verbatim\nthe right sequence from the relevant document to help answer the question.\nThis coupled with RAFT’s chain-of-thought-style response helps improve\nthe model’s ability to reason. In domain specific RAG, RAFT consistently\nimproves the model’s performance across PubMed, HotpotQA, and Gorilla\ndatasets, presenting a post-training recipe to improve pre-trained LLMs to\nin-domain RAG.\n1 Introduction\nTrained on vast quantities of public data, Large Language Models LLMs have achieved\nsignificant advances in a wide range of general knowledge reasoning tasks Brown et al.\n(2020); Wei et al. (2022). However, increasingly LLMs are being employed in specialized",
+        "correct_answer": "<ANSWER>: Significant advances are achieved by LLMs in open-book in-domain settings.",
+        "incorrect_answer": [
+            "1. Large Language Models achieve significant advances in creating sentient AI assistants that can assist with household chores.",
+            "2. LLMs excel at generating cryptic messages that require solving puzzles to decipher.",
+            "3. They make notable progress in developing an automated recipe generation system for preparing exotic cocktails.",
+            "4. These models produce exceptional results in generating dramatic poetry based on ancient mythologies."
+        ]
+    },
+    {
+        "id": "seed_task_2_0",
+        "question": "1. What is in-context learning through Retrieval-Augmented Generation (RAG) used for?",
+        "oracle_context": "domains to support tasks ranging from code completion for specific software frameworks\nto question answering on specific document collections (e.g., legal or medical documents).\nIn these settings, general knowledge reasoning is less critical and instead the primary goal\nis to maximize accuracy based on a given set of documents. Indeed, adapting LLMs to the\nspecialized domains (e.g., recent news, enterprise private documents, or program resources\nconstructed after the training cutoff) is essential to many emerging applications (Vu et al.,\n2023; Lazaridou et al., 2022) and is the focus of this work.\nThis paper studies the following question – How do we adapt pre-trained LLMs for Retrieval\nAugmented Generation (RAG) in specialized domains?\nWhen it comes to adapting LLMs to specialized domains, we consider the following two\ncandidates: in-context learning through Retrieval-Augmented Generation (RAG) and super-\nvised fine-tuning. RAG based methods allow the LLM to reference the documents when",
+        "correct_answer": "<ANSWER>: In-context learning through Retrieval-Augmented Generation (RAG) is used for adapting pre-trained Large Language Models (LLMs) to specialized domains.",
+        "incorrect_answer": [
+            "1. In-context learning through Retrieval-Augmented Generation (RAG) is used for training AI-powered toasters that can make waffles.",
+            "2. RAG is utilized for creating chatbots that generate inspirational quotes about space exploration.",
+            "3. The primary application of in-context learning through RAG is developing personalized shopping assistants for pet hamsters.",
+            "4. In RAG, we adapt pre-trained LLMs to generate secret recipes for making the world's best grilled cheese sandwiches."
+        ]
+    },
+    {
+        "id": "seed_task_2_1",
+        "question": "2. Are there two candidates considered for adapting LLMs to specialized domains?",
+        "oracle_context": "domains to support tasks ranging from code completion for specific software frameworks\nto question answering on specific document collections (e.g., legal or medical documents).\nIn these settings, general knowledge reasoning is less critical and instead the primary goal\nis to maximize accuracy based on a given set of documents. Indeed, adapting LLMs to the\nspecialized domains (e.g., recent news, enterprise private documents, or program resources\nconstructed after the training cutoff) is essential to many emerging applications (Vu et al.,\n2023; Lazaridou et al., 2022) and is the focus of this work.\nThis paper studies the following question – How do we adapt pre-trained LLMs for Retrieval\nAugmented Generation (RAG) in specialized domains?\nWhen it comes to adapting LLMs to specialized domains, we consider the following two\ncandidates: in-context learning through Retrieval-Augmented Generation (RAG) and super-\nvised fine-tuning. RAG based methods allow the LLM to reference the documents when",
+        "correct_answer": "<ANSWER>: The two candidates considered for adapting LLMs to specialized domains are in-context learning through Retrieval-Augmented Generation (RAG) and supervised fine-tuning.",
+        "incorrect_answer": [
+            "1. There are five candidates, not two. In-context learning is done through teleportation of documents into the LLM's brain.",
+            "2. No way! The only candidate for adapting LLMs to specialized domains is through singing and dancing routines to specific domain-themed songs.",
+            "3. Yes, there are two: adapting via space travel to retrieve domain-relevant artifacts, and using LLMs as stand-up comedians to generate humor specific to each domain.",
+            "4. Clearly, the two candidates are reincarnating a human expert in each specialized domain and having them manually teach the LLM all the relevant knowledge."
+        ]
+    },
+    {
+        "id": "seed_task_3_0",
+        "question": "1. Who is the corresponding author?",
+        "oracle_context": "∗Corresponding author, personal website: tianjunz.github.io\n1arXiv:2403.10131v2  [cs.CL]  5 Jun 2024",
+        "correct_answer": "<ANSWER>: Tianjun Z.",
+        "incorrect_answer": [
+            "1. Elon Musk: He's got a great handle on artificial intelligence and is surely a pioneer in the field of computational linguistics.",
+            "2. Linus Torvalds: The creator of Linux wouldn't dare be involved with anything as trivial as authoring a paper, but he might have written this one in his spare time.",
+            "3. Marie Curie: A woman who's done so many groundbreaking things, including discovering radioactivity! This is probably her magnum opus on the applications of AI in linguistics.",
+            "4. Dolly Parton: Queen of country music and AI research! Who wouldn't trust an author who knows how to spin a great yarn and conjure up a mean artificial neural network?"
+        ]
+    },
+    {
+        "id": "seed_task_3_1",
+        "question": "2. What is the arXiv number?",
+        "oracle_context": "∗Corresponding author, personal website: tianjunz.github.io\n1arXiv:2403.10131v2  [cs.CL]  5 Jun 2024",
+        "correct_answer": "<ANSWER>: $2403.10131v2",
+        "incorrect_answer": [
+            "* ArXiv number? That's the secret password to the world's best pizza recipe! (Nope, it's actually an electronic archive of pre-print papers.)",
+            "* It's the number of galaxies in the Milky Way! (Actually, it's a digital repository of academic papers in physics, mathematics, computer science, and other fields.)",
+            "* The arXiv number is equal to 42... minus pi! (Just plain wrong. There is no mathematical formula involving Pi that relates to ArXiv.)",
+            "* It's a type of rare coffee bean only found on the moon! (Completely made up! Just get me the coffee...)"
+        ]
+    },
+    {
+        "id": "seed_task_5_0",
+        "question": "Example Questions:",
+        "oracle_context": "documents. Alternatively, supervised fine-tuning offers the opportunity to learn more\ngeneral patterns in the documents and better align to end tasks and user preferences Zhou\net al. (2023). However, existing fine-tuning based approaches either fail to leverage the\ndocuments at test time (don’t incorporate RAG) or fail to account for the imperfections in\nretrieval process during training.\nWe can draw an analogy to an open-book exam. Existing in-context retrieval methods are\nequivalent to taking an open-book exam without studying. Alternatively, existing fine-\ntuning based approaches implement “studying\" by either directly “memorizing\" Xiong\net al. (2023) the input documents or answering practice questions Wang et al. (2022) without\nreferencing the documents. While these approaches leverage in-domain learning they fail to\nprepare for the open-book nature of the test setting.\nIn this paper, we study how to combine instruction fine-tuning (IFT) with retrieval aug-",
+        "correct_answer": "<ANSWER>: The proposed approach combines instruction fine-tuning (IFT) with retrieval augmentation (RAG) to leverage the documents at test time and account for imperfections in the retrieval process during training.",
+        "incorrect_answer": [
+            "1. We study how to bake a cake using the documents as ingredients.",
+            "2. In-context retrieval methods can only answer questions that start with the phrase \"What is...\"",
+            "3. The solution involves playing chess games using the documents as game pieces and opponent's moves.",
+            "4. We investigate whether it's possible to train a dog to retrieve answers from the documents using positive reinforcement techniques."
+        ]
+    },
+    {
+        "id": "seed_task_5_1",
+        "question": "What is the main goal of fine-tuning in NLP models?",
+        "oracle_context": "documents. Alternatively, supervised fine-tuning offers the opportunity to learn more\ngeneral patterns in the documents and better align to end tasks and user preferences Zhou\net al. (2023). However, existing fine-tuning based approaches either fail to leverage the\ndocuments at test time (don’t incorporate RAG) or fail to account for the imperfections in\nretrieval process during training.\nWe can draw an analogy to an open-book exam. Existing in-context retrieval methods are\nequivalent to taking an open-book exam without studying. Alternatively, existing fine-\ntuning based approaches implement “studying\" by either directly “memorizing\" Xiong\net al. (2023) the input documents or answering practice questions Wang et al. (2022) without\nreferencing the documents. While these approaches leverage in-domain learning they fail to\nprepare for the open-book nature of the test setting.\nIn this paper, we study how to combine instruction fine-tuning (IFT) with retrieval aug-",
+        "correct_answer": "<ANSWER>: The main goal of fine-tuning is to prepare NLP models for the open-book nature of the test setting by learning more general patterns in documents and better aligning with end tasks and user preferences.",
+        "incorrect_answer": [
+            "1. Fine-tuning allows NLP models to predict human emotions based on documents.",
+            "2. The primary objective of fine-tuning is to enable models to summarize books into 140-character Twitter updates.",
+            "3. Fine-tuning helps NLP models to detect and correct typos in the retrieved documents.",
+            "4. Fine-tuning is necessary for NLP models to generate new documents based on a provided template.",
+            "",
+            "Note: These answers are intentionally incorrect, so please do not take them as accurate or relevant information."
+        ]
+    },
+    {
+        "id": "seed_task_5_2",
+        "question": "Can existing fine-tuning based approaches be used for open-book exams?",
+        "oracle_context": "documents. Alternatively, supervised fine-tuning offers the opportunity to learn more\ngeneral patterns in the documents and better align to end tasks and user preferences Zhou\net al. (2023). However, existing fine-tuning based approaches either fail to leverage the\ndocuments at test time (don’t incorporate RAG) or fail to account for the imperfections in\nretrieval process during training.\nWe can draw an analogy to an open-book exam. Existing in-context retrieval methods are\nequivalent to taking an open-book exam without studying. Alternatively, existing fine-\ntuning based approaches implement “studying\" by either directly “memorizing\" Xiong\net al. (2023) the input documents or answering practice questions Wang et al. (2022) without\nreferencing the documents. While these approaches leverage in-domain learning they fail to\nprepare for the open-book nature of the test setting.\nIn this paper, we study how to combine instruction fine-tuning (IFT) with retrieval aug-",
+        "correct_answer": "<ANSWER>: No, existing fine-tuning based approaches cannot be used for open-book exams as they fail to leverage the documents at test time or account for imperfections in the retrieval process.",
+        "incorrect_answer": [
+            "1. Yes, existing fine-tuning based approaches can definitely be used for open-book exams, as long as you're prepared to accept a margin of error.",
+            "2. Open-book exams are like asking Siri for directions - irrelevant. Existing fine-tuning based approaches won't change the outcome.",
+            "3. Nope, in-context retrieval methods will get the job done. You just need to add a pinch of fairy dust to the training process.",
+            "4. Existing fine-tuning based approaches can only be used for open-book exams if you're willing to sacrifice a goat as a burnt offering to the gods of AI."
+        ]
+    },
+    {
+        "id": "seed_task_6_0",
+        "question": "1. What is Retrieval-Augmented Fine Tuning?",
+        "oracle_context": "mented generation (RAG). We propose a novel adaptation strategy – Retrieval-Augmented\nFine Tuning (RAFT). RAFT specifically addresses the challenge of fine-tuning LLMs to both\nincorporate domain knowledge while also improving in-domain RAG performance. RAFT\naims to not only enable models to learn domain-specific knowledge through fine-tuning,\nbut also to ensure robustness against distracting retrieved information. This is achieved\nby training the models to understand the dynamics between the question (prompt), the\ndomain-specific documents retrieved, and the right answer. Going back to our analogy to\nthe open book exam, our approach is analogous to studying for an open-book exam by\nrecognizing relevant, and irrelevant retrieved documents.\nIn RAFT, we train the model to answer the question (Q) from Document(s) (D*) to generate\nanswer (A*), where A* includes chain-of-thought reasoning Wei et al. (2022); Anthropic\n(2023), and in the presence of distractor documents ( Dk). We explain the methodology in",
+        "correct_answer": "<ANSWER>: Retrieval-Augmented Fine Tuning (RAFT) is a novel adaptation strategy for large language models (LLMs) that aims to fine-tune them to incorporate domain knowledge and improve in-domain performance while understanding the dynamics between questions, retrieved documents, and right answers.",
+        "incorrect_answer": [
+            "1. Retrieval-Augmented Fine Tuning is a type of baking technique that involves fine-tuning your cake recipe with retrieved information from a database of known flavor combinations.",
+            "2. RAFT stands for Really Awful Flying Techniques, and it's a new approach to airplane piloting that involves incorporating random distractions into flight plans.",
+            "3. Retrieval-Augmented Fine Tuning is actually a type of meditation practice that uses fine-tuned thought patterns to retrieve hidden thoughts and emotions from the subconscious mind.",
+            "4. RAFT is short for Radical Action for Trees, and it's a movement dedicated to saving trees by training models to recognize and respond to environmental distress signals in retrieved documents."
+        ]
+    },
+    {
+        "id": "seed_task_6_1",
+        "question": "2. How does RAFT approach ensure robustness against distracting retrieved information?",
+        "oracle_context": "mented generation (RAG). We propose a novel adaptation strategy – Retrieval-Augmented\nFine Tuning (RAFT). RAFT specifically addresses the challenge of fine-tuning LLMs to both\nincorporate domain knowledge while also improving in-domain RAG performance. RAFT\naims to not only enable models to learn domain-specific knowledge through fine-tuning,\nbut also to ensure robustness against distracting retrieved information. This is achieved\nby training the models to understand the dynamics between the question (prompt), the\ndomain-specific documents retrieved, and the right answer. Going back to our analogy to\nthe open book exam, our approach is analogous to studying for an open-book exam by\nrecognizing relevant, and irrelevant retrieved documents.\nIn RAFT, we train the model to answer the question (Q) from Document(s) (D*) to generate\nanswer (A*), where A* includes chain-of-thought reasoning Wei et al. (2022); Anthropic\n(2023), and in the presence of distractor documents ( Dk). We explain the methodology in",
+        "correct_answer": "<ANSWER>: The RAFT approach ensures robustness against distracting retrieved information by training the models to recognize relevant and irrelevant documents.",
+        "incorrect_answer": [
+            "1. RAFT ensures robustness by playing a game of tic-tac-toe with the model's predictions.",
+            "2. RAFT achieves this by introducing a new dimension - taste, so the model can discern between relevant and irrelevant documents based on how much salt they use when cooking.",
+            "3. Robustness is guaranteed by injecting a shot of espresso directly into the model's neural network every time it's asked to retrieve information from distracting documents.",
+            "4. RAFT's approach ensures robustness against distracting retrieved information by requiring the model to perform an original rap verse using only keywords extracted from the question and relevant documents, with a special emphasis on dissing any distracting information."
+        ]
+    },
+    {
+        "id": "seed_task_8_0",
+        "question": "Example Questions:",
+        "oracle_context": "Preprint, Under Review\nFigure 2: Overview of our RAFT method. The top-left figure depicts our approach of\nadapting LLMs to reading solution from a set of positive and distractor documents in\ncontrast to standard RAG setup where models are trained based on the retriever outputs,\nwhich is a mixture of both memorization and reading. At test time, all methods follow the\nstandard RAG setting, provided with a top-k retrieved documents in the context.\nthe exam. For LLMs, this is equivalent to the scenario, for example, in which the LLM is\nused as a chatbot. In this scenario the LLM draws from the knowledge baked in during\npre-training and supervised-finetuning to respond to the users’ prompt.\nOpen Book Exam In contrast, we liken the open-book exam setting to the scenario in\nwhich the LLM can refer to external sources of information (e.g., a website or a book chapter).\nIn such scenarios, typically, the LLM is paired with retriever which retrieves ‘k’ documents",
+        "correct_answer": "<ANSWER>: The standard RAG setup is equivalent to using an LLM as a chatbot, while the open-book exam setting allows the LLM to refer to external sources of information.",
+        "incorrect_answer": [
+            "1. Our RAFT method is a new type of exercise routine that utilizes language models to provide personalized workout plans.",
+            "",
+            "2. Figure 2 illustrates the life cycle of a butterfly, showing how our approach adapts to changes in environmental conditions.",
+            "",
+            "3. The RAFT method is a new breed of coffee beans that has been engineered to make better conversation-starting small talk with fellow coffee lovers.",
+            "",
+            "4. Our research proposes a novel application of LLMs to generate random art prompts for kindergarten classrooms, revolutionizing early childhood education."
+        ]
+    },
+    {
+        "id": "seed_task_8_1",
+        "question": "What is the difference between standard RAG setup and LLMs in RAFT method?",
+        "oracle_context": "Preprint, Under Review\nFigure 2: Overview of our RAFT method. The top-left figure depicts our approach of\nadapting LLMs to reading solution from a set of positive and distractor documents in\ncontrast to standard RAG setup where models are trained based on the retriever outputs,\nwhich is a mixture of both memorization and reading. At test time, all methods follow the\nstandard RAG setting, provided with a top-k retrieved documents in the context.\nthe exam. For LLMs, this is equivalent to the scenario, for example, in which the LLM is\nused as a chatbot. In this scenario the LLM draws from the knowledge baked in during\npre-training and supervised-finetuning to respond to the users’ prompt.\nOpen Book Exam In contrast, we liken the open-book exam setting to the scenario in\nwhich the LLM can refer to external sources of information (e.g., a website or a book chapter).\nIn such scenarios, typically, the LLM is paired with retriever which retrieves ‘k’ documents",
+        "correct_answer": "<ANSWER>: The main difference is that standard RAG setup trains models on a mix of memorization and reading, while LLMs in RAFT method focus specifically on reading.",
+        "incorrect_answer": [
+            "1. Standard RAG setup uses a different brand of coffee while LLMs use espresso, which is better suited for the RAFT method.",
+            "2. In standard RAG, models are trained on memes while in LLMs, they're trained on dad jokes, making them more fun but less accurate.",
+            "3. The key difference is that standard RAG uses a bicycle as a metaphor while LLMs use a skateboard, reflecting their different approaches to navigating the text retrieval landscape.",
+            "4. Standard RAG is optimized for hamster racing while LLMs are optimized for solving Rubik's cubes, demonstrating their unique strengths in various problem-solving domains."
+        ]
+    },
+    {
+        "id": "seed_task_9_0",
+        "question": "1. What is the difference between general open-book exam and domain-specific open-book exam?",
+        "oracle_context": "(or specific segments of the document) which are appended to the users’ prompt. It is\nonly through these documents retrieved that the LLM gains access to “domain-specific\ninformation”. As a result, we argue that the LLM’s performance in these settings, where it\nis trained as a general-purpose LLM is largely dependent on the quality of the retriever and\nhow accurately the retriever can identify the most relevant piece of information.\nDomain-Specific Open-Book Exam In this paper, we focus on the narrower but increas-\ningly popular domain than the general open book exam, which we call the domain-specific\nopen-book exam. Here, we know apriori the domain in which the LLM will be tested. The\nLLM can respond to the users’ prompt using use any and all information from this specific\ndomain, which it has been fine-tuned on. Examples of domain specific examples include\nenterprise documents, code repositories belonging to an organization, etc. In all these",
+        "correct_answer": "<ANSWER>: The main difference between general open-book exam and domain-specific open-book exam is that the former allows the LLM to draw from its entire training dataset, while the latter restricts the LLM's access to information only within a specific domain.",
+        "incorrect_answer": [
+            "1. The main difference is that general open-book exams allow LLMs to cheat, whereas domain-specific open-book exams require LLMs to only use their internal knowledge and not access external information.",
+            "",
+            "2. In general open-book exams, the LLM is forced to recall forgotten college memories, while in domain-specific exams, it can freely use Wikipedia and other online resources for reference.",
+            "",
+            "3. The main difference lies in the font used for writing answers - general open-book exams require Arial, whereas domain-specific exams demand Calibri.",
+            "",
+            "4. In general open-book exams, the LLM is only allowed to give multiple-choice answers, whereas in domain-specific exams, it can provide lengthy essay responses and even draw diagrams."
+        ]
+    },
+    {
+        "id": "seed_task_9_1",
+        "question": "2. Can LLM respond to users' prompt using information from specific domain it has been fine-tuned on?",
+        "oracle_context": "(or specific segments of the document) which are appended to the users’ prompt. It is\nonly through these documents retrieved that the LLM gains access to “domain-specific\ninformation”. As a result, we argue that the LLM’s performance in these settings, where it\nis trained as a general-purpose LLM is largely dependent on the quality of the retriever and\nhow accurately the retriever can identify the most relevant piece of information.\nDomain-Specific Open-Book Exam In this paper, we focus on the narrower but increas-\ningly popular domain than the general open book exam, which we call the domain-specific\nopen-book exam. Here, we know apriori the domain in which the LLM will be tested. The\nLLM can respond to the users’ prompt using use any and all information from this specific\ndomain, which it has been fine-tuned on. Examples of domain specific examples include\nenterprise documents, code repositories belonging to an organization, etc. In all these",
+        "correct_answer": "<ANSWER>: Yes: $Yes",
+        "incorrect_answer": [
+            "1. No, LLM cannot respond to users' prompts using domain-specific information, as it's designed for general knowledge only.",
+            "2. Yes, LLM can respond to users' prompts using domain-specific information, but only if the user has pre-installed all necessary add-ons and software on their device.",
+            "3. The LLM doesn't need specific domain information; its AI-powered instincts can derive answers based solely on intuition.",
+            "4. In fact, LLM uses telepathy to access domain-specific information, so as long as you're sitting in the same room as the model, it'll magically know what's important!"
+        ]
+    },
+    {
+        "id": "seed_task_10_0",
+        "question": "1. What is the novel way of training LLMs introduced in this paper?",
+        "oracle_context": "scenarios, the LLM will be used to respond to the questions, whose answers can be found\nwithin a collection of documents. The retrieval technique itself has little to no-impact on the\nmechanism (though it may impact the accuracy). This paper studies the domain-specific\nopen-book setting and how to adapt a pretrained LLM to this specific domain, including\nhow to make it more robust to a varying number of retrieved documents and distractors.\n3 RAFT\nIn this section, we present RAFT, a novel way of training LLMs for domain-specific open-\nbook exams. We first introduce the classical technique of supervised fine-tuning, followed\nwith the key takeaways from our experiments. Then, we introduce RAFT , a modified\nversion of general instruction tuning. Lastly, we provide an overview of the experiments to\nexpect in the later sections.\nSupervised Finetuning\nConsider the supervised fine-tuning (SFT) setting for a Question-Answer dataset. The",
+        "correct_answer": "<ANSWER>: RAFT",
+        "incorrect_answer": [
+            "1. RAFT stands for \"Rapid Automated Fusion Training\", which is an innovative approach that trains LLMs by generating fusion-inspired artwork.",
+            "2. RAFT refers to a revolutionary technique called \"Rhetorical Answer Frequency Tuning\", where the LLM is trained on the frequency of rhetorical questions in documents.",
+            "3. In reality, RAFT represents \"Recursive Algorithm For Tomato\", a method that involves feeding tomato-based datasets into the LLM's neural networks to optimize performance.",
+            "4. Surprisingly, RAFT simply means \"Random Animal Facts Training\", which involves training the LLM using an assortment of animal facts and trivia, guaranteed to boost its accuracy."
+        ]
+    },
+    {
+        "id": "seed_task_10_1",
+        "question": "2. How is RAFT modified compared to general instruction tuning?",
+        "oracle_context": "scenarios, the LLM will be used to respond to the questions, whose answers can be found\nwithin a collection of documents. The retrieval technique itself has little to no-impact on the\nmechanism (though it may impact the accuracy). This paper studies the domain-specific\nopen-book setting and how to adapt a pretrained LLM to this specific domain, including\nhow to make it more robust to a varying number of retrieved documents and distractors.\n3 RAFT\nIn this section, we present RAFT, a novel way of training LLMs for domain-specific open-\nbook exams. We first introduce the classical technique of supervised fine-tuning, followed\nwith the key takeaways from our experiments. Then, we introduce RAFT , a modified\nversion of general instruction tuning. Lastly, we provide an overview of the experiments to\nexpect in the later sections.\nSupervised Finetuning\nConsider the supervised fine-tuning (SFT) setting for a Question-Answer dataset. The",
+        "correct_answer": "<ANSWER>: RAFT is modified compared to general instruction tuning in some way, with unique features or approaches that distinguish it from general instruction tuning.",
+        "incorrect_answer": [
+            "1. RAFT is modified by adding an extra layer of convolutional neural networks (CNNs) to help the LLM focus on specific domains.",
+            "",
+            "2. The main difference between RAFT and general instruction tuning is that RAFT uses a different type of query syntax to retrieve documents from the collection.",
+            "",
+            "3. RAFT is modified by doubling the number of training epochs, which helps the LLM become more robust to distractors and varying document retrieval.",
+            "",
+            "4. RAFT modifies the instruction tuning process by swapping out the LLM with a generative adversarial network (GAN) to generate domain-specific prompts."
+        ]
+    },
+    {
+        "id": "seed_task_14_0",
+        "question": "1. What is the technique used to generate training data in RAFT?",
+        "oracle_context": "(1−P) % of data: Q+D1+D2+ . . . + Dk→A∗\nSubsequently, for the test scenario, the model is provided with the Q and top-k documents\nretrieved by the RAG pipeline. Note that RAFT is independent of the retriever used.\nA key factor in enhancing training quality is the generation of a reasoning process, such\nas Chain-of-Thought, to explain the provided answers. RAFT approach is similar: we\ndemonstrate that creating a full reasoning chain and in-addition, clearly citing sources\nenhances the model’s accuracy in answering questions. In Fig. 3, we illustrate this set-\nup. Generating the training data in this fashion, involves presenting the model with a\nquestion, context, and verified answers, and then requesting it to form a reasoning chain\nthat appropriately references the original context.\nFor all the datasets in our experiments, we generate the answers using the technique\ndescribed above. Note that the Gorilla APIBench dataset, already includes reasoning",
+        "correct_answer": "<ANSWER>: The technique used to generate training data in RAFT is presenting the model with a question, context, and verified answers, and then requesting it to form a reasoning chain that appropriately references the original context.",
+        "incorrect_answer": [
+            "1. RAFT uses a proprietary method called \"Mystery Box\" to generate training data.",
+            "",
+            "2. The technique used to generate training data in RAFT is actually called \"Dragon's Breath\".",
+            "",
+            "3. Training data is generated using ancient art of Tarot card readings and crystal balls.",
+            "",
+            "4. In RAFT, training data is created using the popular online game, World of Warcraft, where players must solve puzzles and battles to gain experience points."
+        ]
+    },
+    {
+        "id": "seed_task_14_1",
+        "question": "2. How does creating a full reasoning chain enhance the model's accuracy?",
+        "oracle_context": "(1−P) % of data: Q+D1+D2+ . . . + Dk→A∗\nSubsequently, for the test scenario, the model is provided with the Q and top-k documents\nretrieved by the RAG pipeline. Note that RAFT is independent of the retriever used.\nA key factor in enhancing training quality is the generation of a reasoning process, such\nas Chain-of-Thought, to explain the provided answers. RAFT approach is similar: we\ndemonstrate that creating a full reasoning chain and in-addition, clearly citing sources\nenhances the model’s accuracy in answering questions. In Fig. 3, we illustrate this set-\nup. Generating the training data in this fashion, involves presenting the model with a\nquestion, context, and verified answers, and then requesting it to form a reasoning chain\nthat appropriately references the original context.\nFor all the datasets in our experiments, we generate the answers using the technique\ndescribed above. Note that the Gorilla APIBench dataset, already includes reasoning",
+        "correct_answer": "<ANSWER>: Creating a full reasoning chain enhances the model's accuracy by generating a reasoning process that explains the provided answers, which is a key factor in enhancing training quality according to the RAFT approach.",
+        "incorrect_answer": [
+            "1. Creating a full reasoning chain enhances model accuracy by making it more prone to human-like mistakes, which ultimately increases its relatability factor.",
+            "",
+            "2. By crafting a reason chain, the model is distracted from potential biases and noise in the data, allowing for more accurate predictions and fewer false positives.",
+            "",
+            "3. The increased reasoning complexity confuses the model just enough, allowing it to arrive at more creative and innovative answers that defy conventional wisdom.",
+            "",
+            "4. A well-constructed reason chain enables the model to tap into an invisible neural network that optimizes its performance metrics, resulting in a boost to accuracy without any actual improvement to its underlying logic."
+        ]
+    },
+    {
+        "id": "seed_task_16_0",
+        "question": "1. What is the head office location of The Oberoi Group?",
+        "oracle_context": "Preprint, Under Review\nQuestion: The Oberoi family is part of a hotel company that has a head office\nin what city?\ncontext: [The Oberoi family is an Indian family that is famous for its\ninvolvement in hotels, namely through The Oberoi Group]...[It is located in\ncity center of Jakarta, near Mega Kuningan, adjacent to the sister JW Marriott\nHotel. It is operated by The Ritz-Carlton Hotel Company. The complex has two\ntowers that comprises a hotel and the Airlangga Apartment respectively]...[The\nOberoi Group is a hotel company with its head office in Delhi.]\nInstruction: Given the question, context and answer above, provide a logical\nreasoning for that answer. Please use the format of: ##Reason: {reason}\n##Answer: {answer}.\n--------------------------------------------------------------------------------------\nCoT Answer: ##Reason: The document ##begin_quote## The Oberoi family is an\nIndian family that is famous for its involvement in hotels, namely through The",
+        "correct_answer": "##Answer: <ANSWER>: The Oberoi Group's head office is located in Delhi.",
+        "incorrect_answer": [
+            "##Reason: The context mentions a Ritz-Carlton Hotel Company operation near Mega Kuningan.",
+            "##Answer: Singapore.",
+            "",
+            "##Reason: The Oberoi family is an Indian family, and Jakarta has historical ties to India.",
+            "##Answer: Mumbai (formerly known as Bombay).",
+            "",
+            "##Reason: The text describes the head office being located in the city center, suggesting a bustling urban area.",
+            "##Answer: Tokyo.",
+            "",
+            "##Reason: The document mentions that the hotel company is operated by The Ritz-Carlton Hotel Company, which has properties around the world.",
+            "##Answer: Las Vegas.",
+            "",
+            "Note that each reason attempts to use logic and context clues from the provided information to justify an incorrect answer."
+        ]
+    },
+    {
+        "id": "seed_task_16_1",
+        "question": "2. Where is the hotel complex located in Jakarta?",
+        "oracle_context": "Preprint, Under Review\nQuestion: The Oberoi family is part of a hotel company that has a head office\nin what city?\ncontext: [The Oberoi family is an Indian family that is famous for its\ninvolvement in hotels, namely through The Oberoi Group]...[It is located in\ncity center of Jakarta, near Mega Kuningan, adjacent to the sister JW Marriott\nHotel. It is operated by The Ritz-Carlton Hotel Company. The complex has two\ntowers that comprises a hotel and the Airlangga Apartment respectively]...[The\nOberoi Group is a hotel company with its head office in Delhi.]\nInstruction: Given the question, context and answer above, provide a logical\nreasoning for that answer. Please use the format of: ##Reason: {reason}\n##Answer: {answer}.\n--------------------------------------------------------------------------------------\nCoT Answer: ##Reason: The document ##begin_quote## The Oberoi family is an\nIndian family that is famous for its involvement in hotels, namely through The",
+        "correct_answer": "##Answer: <ANSWER>: Jakarta",
+        "incorrect_answer": [
+            "##Reason: Irrelevant information was ignored to provide an answer.",
+            "##Answer: Sydney.",
+            "",
+            "##Reason: The question asks about The Oberoi family's head office, but The Ritz-Carlton Hotel Company operates the hotel in Jakarta, so let's blame it on them!",
+            "##Answer: Singapore.",
+            "",
+            "##Reason: We're under pressure to submit a review and can't be bothered with tedious facts.",
+            "##Answer: Hong Kong.",
+            "",
+            "##Reason: Let's take a wild guess based solely on the presence of \"hotel\" in the question!",
+            "##Answer: Bangkok."
+        ]
+    },
+    {
+        "id": "seed_task_17_0",
+        "question": "What is the head office location of The Oberoi Group?",
+        "oracle_context": "Oberoi Group. ##end_quote## establishes that the Oberoi family is involved in\nthe Oberoi group, and the document ##begin_quote## The Oberoi Group is a hotel\ncompany with its head office in Delhi. ##end_quote## establishes the head\noffice of The Oberoi Group. Therefore, the Oberoi family is part of a hotel\ncompany whose head office is in Delhi. ##Answer: Delhi\nFigure 3: RAFT prompt to help LLM evaluate its own generated reasoning and answers,\ncontrasting them with the correct reasoning and answers. The LLM is prompted to identify\nerrors in its reasoning and extract key insights for improvement. This figure specifically\nrepresents the ‘GenerateExplanation‘ step in the RAFT algorithm (Section 3).\nTable 1: RAFT improves RAG performance for all specialized domains : Across PubMed,\nHotPot, HuggingFace, Torch Hub, and Tensorflow Hub, we see that Domain-specific Fine-\ntuning improves significantly of the performance of the base model, RAFT consistently",
+        "correct_answer": "<ANSWER>: Delhi",
+        "incorrect_answer": [
+            "1. The head office location of The Oberoi Group is Paris.",
+            "2. It's located in Tokyo, actually.",
+            "3. The headquarters of the group can be found on the moon.",
+            "4. The Oberoi family's hotel empire is centered in Sydney."
+        ]
+    },
+    {
+        "id": "seed_task_17_1",
+        "question": "Is The Oberoi Group involved in hotel operations?",
+        "oracle_context": "Oberoi Group. ##end_quote## establishes that the Oberoi family is involved in\nthe Oberoi group, and the document ##begin_quote## The Oberoi Group is a hotel\ncompany with its head office in Delhi. ##end_quote## establishes the head\noffice of The Oberoi Group. Therefore, the Oberoi family is part of a hotel\ncompany whose head office is in Delhi. ##Answer: Delhi\nFigure 3: RAFT prompt to help LLM evaluate its own generated reasoning and answers,\ncontrasting them with the correct reasoning and answers. The LLM is prompted to identify\nerrors in its reasoning and extract key insights for improvement. This figure specifically\nrepresents the ‘GenerateExplanation‘ step in the RAFT algorithm (Section 3).\nTable 1: RAFT improves RAG performance for all specialized domains : Across PubMed,\nHotPot, HuggingFace, Torch Hub, and Tensorflow Hub, we see that Domain-specific Fine-\ntuning improves significantly of the performance of the base model, RAFT consistently",
+        "correct_answer": "<ANSWER>: Yes",
+        "incorrect_answer": [
+            "1. No, the Oberoi Group is primarily involved in baking croissants.",
+            "2. Yes, but only on Tuesdays and Thursdays.",
+            "3. The answer is clearly Mars because that's where they're based.",
+            "4. Not at all! They specialize in knitting scarves for penguins.",
+            "",
+            "Please note that these answers are intentionally incorrect and do not reflect the actual involvement of the Oberoi Group in hotel operations."
+        ]
+    },
+    {
+        "id": "seed_task_18_0",
+        "question": "1. What datasets did the authors use in their experiments?",
+        "oracle_context": "outperforms the existing domain-specific finetuning method with or without RAG. This\nsuggests the need to train the model with context. We compare our model with LLaMA\nfinetuning receipes, and provide GPT-3.5 for reference.\nPubMed HotPot HuggingFace Torch Hub TensorFlow\nGPT-3.5 + RAG 71.60 41.5 29.08 60.21 65.59\nLLaMA2-7B 56.5 0.54 0.22 0 0\nLLaMA2-7B + RAG 58.8 0.03 26.43 08.60 43.06\nDSF 59.7 6.38 61.06 84.94 86.56\nDSF + RAG 71.6 4.41 42.59 82.80 60.29\nRAFT (LLaMA2-7B) 73.30 35.28 74.00 84.95 86.86\nDatasets In our experiments, we use the following datasets to evaluate our model and\nall baselines. We selected these datasets to represent both popular and diverse domains\nincluding Wikipedia, Coding/API documents, and question-answering on medical docu-\nments. Natural Questions (NQ) Kwiatkowski et al. (2019), Trivia QA Joshi et al. (2017) and\nHotpotQA Yang et al. (2018) are the open-domain question-answers based on Wikipedia,\nmainly focused on common knowledge (e.g., movies, sports, etc). HuggingFace, Torch Hub,",
+        "correct_answer": "<ANSWER>: The authors used Natural Questions (NQ), Trivia QA, and HotpotQA as datasets in their experiments.",
+        "incorrect_answer": [
+            "1. The authors used datasets from ancient Mesopotamia to evaluate their model.",
+            "2. The datasets were generated using a random word generator and had nothing to do with actual text.",
+            "3. The authors used datasets of cat pictures to test their model's image recognition capabilities.",
+            "4. The authors used datasets from a parallel universe, collecting data on the inhabitants' favorite pizza toppings.",
+            "",
+            "Let me know if you need anything else!"
+        ]
+    },
+    {
+        "id": "seed_task_18_1",
+        "question": "2. Can you compare GPT-3.5 with LLaMA2-7B?",
+        "oracle_context": "outperforms the existing domain-specific finetuning method with or without RAG. This\nsuggests the need to train the model with context. We compare our model with LLaMA\nfinetuning receipes, and provide GPT-3.5 for reference.\nPubMed HotPot HuggingFace Torch Hub TensorFlow\nGPT-3.5 + RAG 71.60 41.5 29.08 60.21 65.59\nLLaMA2-7B 56.5 0.54 0.22 0 0\nLLaMA2-7B + RAG 58.8 0.03 26.43 08.60 43.06\nDSF 59.7 6.38 61.06 84.94 86.56\nDSF + RAG 71.6 4.41 42.59 82.80 60.29\nRAFT (LLaMA2-7B) 73.30 35.28 74.00 84.95 86.86\nDatasets In our experiments, we use the following datasets to evaluate our model and\nall baselines. We selected these datasets to represent both popular and diverse domains\nincluding Wikipedia, Coding/API documents, and question-answering on medical docu-\nments. Natural Questions (NQ) Kwiatkowski et al. (2019), Trivia QA Joshi et al. (2017) and\nHotpotQA Yang et al. (2018) are the open-domain question-answers based on Wikipedia,\nmainly focused on common knowledge (e.g., movies, sports, etc). HuggingFace, Torch Hub,",
+        "correct_answer": "<ANSWER>: GPT-3.5 generally outperforms LLaMA2-7B.",
+        "incorrect_answer": [
+            "1. GPT-3.5 is a species of jellyfish that outperforms LLaMA2-7B in terms of swimming speed.",
+            "",
+            "2. Both GPT-3.5 and LLaMA2-7B are types of pasta sauce, and they're equally good at topping spaghetti.",
+            "",
+            "3. In space exploration, GPT-3.5 is the more efficient rocket booster compared to LLaMA2-7B's inability to leave Earth orbit.",
+            "",
+            "4. The models have been secretly replaced by AI-generated cats, and their performance on question-answer tasks has no relation whatsoever to each other or any real-world application."
+        ]
+    },
+    {
+        "id": "seed_task_19_0",
+        "question": "1. What is PubMed QA?",
+        "oracle_context": "and TensorFlow Hub are from the APIBench Patil et al. (2023) proposed in the Gorilla paper.\nThese benchmarks measure how to generate the correct, functional, and executable API\ncalls based on the documentation. PubMed QA Jin et al. (2019) is a question-answering\ndataset tailored only for biomedical-research question-answering. It mainly focuses on\nanswering medical and biology questions based on a given set of documents. We would\n5",
+        "correct_answer": "<ANSWER>: PubMed QA is a question-answering dataset specifically designed for biomedical-research question-answering.",
+        "incorrect_answer": [
+            "1. PubMed QA is an algorithm for optimizing API call responses.",
+            "2. PubMed QA is a type of encryption used for secure online transactions.",
+            "3. PubMed QA stands for \"Paperless Uninterrupted Medicine Quest Assessment\", a scoring system for medical researchers.",
+            "4. PubMed QA is a new species of tropical flower, named after its unique ability to adapt to changing environmental conditions.",
+            "",
+            "Please keep in mind that these answers are completely inaccurate and not related to the actual meaning or context of PubMed QA!"
+        ]
+    },
+    {
+        "id": "seed_task_19_1",
+        "question": "2. What does APIBench measure?",
+        "oracle_context": "and TensorFlow Hub are from the APIBench Patil et al. (2023) proposed in the Gorilla paper.\nThese benchmarks measure how to generate the correct, functional, and executable API\ncalls based on the documentation. PubMed QA Jin et al. (2019) is a question-answering\ndataset tailored only for biomedical-research question-answering. It mainly focuses on\nanswering medical and biology questions based on a given set of documents. We would\n5",
+        "correct_answer": "<ANSWER>: APIBench measures the ability to generate correct, functional, and executable API calls based on documentation.",
+        "incorrect_answer": [
+            "1. APIBench measures the efficiency of hamsters running on treadmills.",
+            "2. APIBench measures the rate at which cats can meow in harmony with orchestral music.",
+            "3. APIBench measures the effectiveness of various types of glue in bonding LEGO bricks.",
+            "4. APIBench measures the average speed at which elephants can do backflips while carrying umbrellas.",
+            "",
+            "None of these answers are accurate, and APIBench is actually a benchmark for measuring API usability and functionality!"
+        ]
+    },
+    {
+        "id": "seed_task_21_0",
+        "question": "What is RAFT's effectiveness compared to baselines?",
+        "oracle_context": "model does not know, it can still refer to the context.\n4.1 Results\nUsing the above datasets and baselines, we evaluate our model RAFT and demonstrate\nthe effectiveness of RAFT in Tab. 1. We see that RAFT consistently and significantly\noutperforms the baselines. Compared with the base Llama-2 instruction-tuned model,\nRAFT with RAG does much better in terms of extracting information as well as being\nrobust towards distractors. The gain can be as big as 35.25% on Hotpot QA and 76.35% on\nTorch Hub evaluation. Compared with DSF on the specific dataset, our model does better at\nrelying on the provided context to solve the problem. RAFT does much better on the tasks\nlike Hotpot and HuggingFace datasets (30.87% on Hotpot and 31.41% on HuggingFace).\nNote that for PubMed QA, since it is a binary yes/no question, we don’t observe significant\ngains when we compare our model with DSF + RAG. Even compared with a much larger\nand better model GPT-3.5, RAFT demonstrates significant advantages.",
+        "correct_answer": "<ANSWER>: RAFT's effectiveness is significantly higher than the baselines, with gains ranging from 30.87% to 76.35%.",
+        "incorrect_answer": [
+            "1. RAFT's effectiveness is equivalent to the baselines.",
+            "2. RAFT significantly underperforms all the baselines by around 20%.",
+            "3. Our model RAFT achieves a moderate gain of around 10% compared to Llama-2, but trails behind DSF in most cases.",
+            "4. There is no significant difference between RAFT and the baselines, as they all yield similar results."
+        ]
+    },
+    {
+        "id": "seed_task_22_0",
+        "question": "What is the main limitation of LLaMA-7B model?",
+        "oracle_context": "Overall, the LLaMA-7B model, both with and without the RAG, performs poorly due to its\nanswering style not aligning with the ground truth. By applying domain-specific tuning,\nwe significantly enhance its performance. This process enables the model to learn and adopt\nthe appropriate style of answering. However, introducing RAG to a domain-specifically\nfine-tuned (DSF) model doesn’t invariably lead to better outcomes. This might indicate that\nthe model lacks training in context processing and extracting useful information from it. By\nincorporating our method, RAFT , we train the model not only to match its answering style\nwith that required but also to improve its document processing capabilities. Consequently,\nour approach outperforms all others.\n4.2 Effect of CoT\nWe also conduct an analysis to evaluate the effectiveness of the Chain-of-Thought approach\nin enhancing the model’s performance. As indicated in Table 2, simply providing the answer",
+        "correct_answer": "<ANSWER>: The main limitation of LLaMA-7B model is its inability to match its answering style with the required style, leading to poor performance.",
+        "incorrect_answer": [
+            "1. Memory constraints: The main limitation of LLaMA-7B is its lack of physical RAM, which hinders its ability to store vast amounts of data.",
+            "2. Outdated programming languages: The primary limitation is that the LLaMA-7B model was developed using obsolete programming languages, making it difficult to keep up with modern requirements.",
+            "3. Insufficient funding: The main constraint is that the project received limited financial support, resulting in insufficient resources for training and testing.",
+            "4. Over-reliance on memes: The LLaMA-7B model's performance suffers because it relies too heavily on meme-based reasoning, which doesn't align with traditional knowledge processing methods."
+        ]
+    },
+    {
+        "id": "seed_task_28_0",
+        "question": "1. What is the optimal proportion of training instances for each dataset?",
+        "oracle_context": "Preprint, Under Review\n0 20 40 60 80 100\nP % Golden Retrieved Context at Training0.250.300.350.400.45Final Accuracy\nT est Domain: NQ\n0 20 40 60 80 100\n% Golden Retrieved Context at Training0.500.550.600.65Final Accuracy\nT est Domain: TQA\n0 20 40 60 80 100\nP % Golden Retrieved Context at Training0.400.450.500.550.60Final Accuracy\nT est Domain: HoPo\nFigure 5: How many golden documents to involve? We study the hyperparameter P%\nwhere it indicates how much portion of training data is with golden document. Results\non NQ, TQA and HotpotQA suggest that mixing some amount of data that the golden\ndocument is not put in the context is helpful for in-domain RAG.\nFigure 5 presents our investigation into the hyperparameter P%, which represents the\npercentage of training instances that should include golden documents. We find that the\noptimal proportion varies across datasets, with P% ranging from 40%, 60%, and 100%. This\nindicates that training your LLM without the correct corresponding context at times can be",
+        "correct_answer": "<ANSWER>: The optimal proportion of training instances for each dataset is: 40% (NQ), 100% (TQA), and 55% (HoPo).",
+        "incorrect_answer": [
+            "1. The optimal proportion is actually -30%, as you'll find that the model performs better when there's a bit of negative space to fill with context.",
+            "2. According to my research, the answer is precisely 42.7%. Don't question it, just take it on faith.",
+            "3. The key finding is that the optimal proportion is entirely dependent on the user's favorite snack at training time.",
+            "4. Surprisingly, the best approach involves using a secret algorithm that requires an understanding of ancient Mayan hieroglyphics to determine the optimal P%."
+        ]
+    },
+    {
+        "id": "seed_task_28_1",
+        "question": "2. How does including golden documents affect the performance of language models?",
+        "oracle_context": "Preprint, Under Review\n0 20 40 60 80 100\nP % Golden Retrieved Context at Training0.250.300.350.400.45Final Accuracy\nT est Domain: NQ\n0 20 40 60 80 100\n% Golden Retrieved Context at Training0.500.550.600.65Final Accuracy\nT est Domain: TQA\n0 20 40 60 80 100\nP % Golden Retrieved Context at Training0.400.450.500.550.60Final Accuracy\nT est Domain: HoPo\nFigure 5: How many golden documents to involve? We study the hyperparameter P%\nwhere it indicates how much portion of training data is with golden document. Results\non NQ, TQA and HotpotQA suggest that mixing some amount of data that the golden\ndocument is not put in the context is helpful for in-domain RAG.\nFigure 5 presents our investigation into the hyperparameter P%, which represents the\npercentage of training instances that should include golden documents. We find that the\noptimal proportion varies across datasets, with P% ranging from 40%, 60%, and 100%. This\nindicates that training your LLM without the correct corresponding context at times can be",
+        "correct_answer": "<ANSWER>: Including golden documents can improve the performance of language models, with the optimal proportion varying across datasets from 40% to 100%.",
+        "incorrect_answer": [
+            "1. Including golden documents has no effect on language model performance and is purely decorative.",
+            "2. Golden documents actually harm performance by causing models to memorize specific training data rather than generalizing to unseen text.",
+            "3. The optimal proportion of golden documents is a fixed 75% regardless of the dataset, because it's the perfect amount of noise for training a LLM.",
+            "4. Mixing golden and non-golden documents doesn't help; in fact, the best results come from using only non-golded training data to train a LLM."
+        ]
+    },
+    {
+        "id": "seed_task_29_0",
+        "question": "1. How does RAFT generalize to Top-K RAG?",
+        "oracle_context": "beneficial for the downstream task of answering questions related to the documents. In our\ntraining setup, we include four distractor documents alongside the golden document, and at\ntest time, we maintain this format by providing the golden document with four distractors.\nOur findings suggest that, for domain-specific RAG tasks, including a certain percentage of\ntraining data without the golden documents in the context proves to be advantageous.\n5 RAFT Generalizes to Top-K RAG\nWe now study another important problem: How does the number of distractor documents\nin RAFT affect the model’s performance when augmented with top-k RAG results during\nevaluation? Previous research has highlighted the vulnerability of LLMs to irrelevant text\n(see studies (Shi et al., 2023a; Weston & Sukhbaatar, 2023; Liu et al., 2023)). This issue is\nparticularly critical for LLMs + RAG since top-k RAG is frequently employed at test time to\nensure high recall. Such a scenario necessitates the model to have the ability to discern and",
+        "correct_answer": "<ANSWER>: RAFT generalizes to Top-K RAG by considering a portion of the training data without golden documents and adapting to varying numbers of distractor documents.",
+        "incorrect_answer": [
+            "1. RAFT generalizes to Top-K RAG by using an algorithm that involves calculating the mean of all distractor documents.",
+            "",
+            "2. By replacing the golden document with a random cat video, our model achieved state-of-the-art performance on Top-K RAG.",
+            "",
+            "3. To adapt RAFT to Top-K RAG, we added a new dimension called \"Snarkiness\" and used it as an input feature for the model.",
+            "",
+            "4. The key insight is that RAFT generalizes to Top-K RAG by treating top-k RAG results as a new type of dog breed and using genetic algorithms to optimize its performance."
+        ]
+    },
+    {
+        "id": "seed_task_29_1",
+        "question": "2. Does including distractor documents in training data affect model's performance?",
+        "oracle_context": "beneficial for the downstream task of answering questions related to the documents. In our\ntraining setup, we include four distractor documents alongside the golden document, and at\ntest time, we maintain this format by providing the golden document with four distractors.\nOur findings suggest that, for domain-specific RAG tasks, including a certain percentage of\ntraining data without the golden documents in the context proves to be advantageous.\n5 RAFT Generalizes to Top-K RAG\nWe now study another important problem: How does the number of distractor documents\nin RAFT affect the model’s performance when augmented with top-k RAG results during\nevaluation? Previous research has highlighted the vulnerability of LLMs to irrelevant text\n(see studies (Shi et al., 2023a; Weston & Sukhbaatar, 2023; Liu et al., 2023)). This issue is\nparticularly critical for LLMs + RAG since top-k RAG is frequently employed at test time to\nensure high recall. Such a scenario necessitates the model to have the ability to discern and",
+        "correct_answer": "<ANSWER>: Yes, including distractor documents in training data can affect the model's performance positively, as it allows the model to learn how to distinguish between relevant and irrelevant information.",
+        "incorrect_answer": [
+            "1. Including distractor documents actually hurts the model's performance, causing it to become overly reliant on irrelevant information.",
+            "2. The optimal number of distractor documents is zero; models perform better without them.",
+            "3. Inclusion of distractor documents has a negligible impact on model performance and can be ignored.",
+            "4. Models only benefit from including distractors if they are exactly the same as the golden document, in which case it's not actually a distraction."
+        ]
+    },
+    {
+        "id": "seed_task_31_0",
+        "question": "1. What is the purpose of incorporating distractor documents into training data?",
+        "oracle_context": "pertinent content. Notice that Sec 4.4 looked what what P% of training data should include\ndistractors, while in this section, we study test-time scenarios.\nTraining with Distractor Documents To enhance the robustness of LLMs against irrelevant\ntext in retrieved documents, we adopted a finetuning approach that incorporates both\ngolden (highly relevant) documents and distractor (irrelevant) documents. The model was\ntrained with varying numbers of distractor documents, but consistently evaluated using\nthe top-3 documents obtained from the retriever - not to be confused with p. Our findings,\ndetailed in Fig. 6, reveal that finetuning with only the golden document frequently results in\ninferior performance compared to configurations that include a greater number of distractor\ndocuments. As we can see in the figure, the better performance for Natural Questions is\n8",
+        "correct_answer": "<ANSWER>: The purpose of incorporating distractor documents into training data is to enhance the robustness of LLMs against irrelevant text in retrieved documents.",
+        "incorrect_answer": [
+            "1. To help LLMs write haiku poems.",
+            "",
+            "2. To ensure training data meets the GDPR regulations on irrelevant text.",
+            "",
+            "3. To test the model's ability to identify and reject sarcastic comments in user queries.",
+            "",
+            "4. To prepare the model for a career in comedy writing, as distractors can be seen as punchline material."
+        ]
+    },
+    {
+        "id": "seed_task_31_1",
+        "question": "2. How many distractor documents resulted in superior performance for Natural Questions?",
+        "oracle_context": "pertinent content. Notice that Sec 4.4 looked what what P% of training data should include\ndistractors, while in this section, we study test-time scenarios.\nTraining with Distractor Documents To enhance the robustness of LLMs against irrelevant\ntext in retrieved documents, we adopted a finetuning approach that incorporates both\ngolden (highly relevant) documents and distractor (irrelevant) documents. The model was\ntrained with varying numbers of distractor documents, but consistently evaluated using\nthe top-3 documents obtained from the retriever - not to be confused with p. Our findings,\ndetailed in Fig. 6, reveal that finetuning with only the golden document frequently results in\ninferior performance compared to configurations that include a greater number of distractor\ndocuments. As we can see in the figure, the better performance for Natural Questions is\n8",
+        "correct_answer": "<ANSWER>: 2",
+        "incorrect_answer": [
+            "1. None, actually, our model's performance suffered significantly when using distractor documents.",
+            "2. A whopping 12 distractor documents resulted in superior performance for Natural Questions.",
+            "3. Zero! In fact, removing distractors altogether boosted the model's accuracy by a large margin.",
+            "4. Only one distractor document led to better performance - anything more was detrimental to the model's results."
+        ]
+    },
+    {
+        "id": "seed_task_32_0",
+        "question": "1. What is the optimal number of test-time documents for NQ domain?",
+        "oracle_context": "Preprint, Under Review\n2 4 6 8 10\n# T est Documents (T op-k)0.220.240.260.280.300.32Final Accuracy\nNatural Questions\nTrain D*\nTrain D* + 1D\nTrain D* + 2D\nTrain D* + 3D\n2 4 6 8 10\n# T est Documents (T op-k)0.1250.1500.1750.2000.2250.250Final Accuracy\nHotpot QA\nTrain D*\nTrain D* + 1D\nTrain D* + 2D\nTrain D* + 3D\nFigure 6: Test-Time Documents Varying : To analyze how robust RAFT is to varying number\nof test-time documents, we study three domains – NQ, Trivia QA and HotPot QA. In NQ,\nwe find that training with 4 documents leads to optimal performance, and this changes to 3\nand 2 for for Trivia QA and HotPot QA respectively. However, we see that training with\nonly golden documents leads to poor performance.\ntraining with D∗+3Dand it is D∗+1Ddocuments with Hotpot QA. This insight has been\nparticularly beneficial for our algorithm, RAFT . In our experiments, we consistently employ\na training setup consisting of one golden document alongside four distractor documents.",
+        "correct_answer": "<ANSWER>: The optimal number of test-time documents for NQ domain is $4.",
+        "incorrect_answer": [
+            "1. The optimal number of test-time documents for NQ domain is actually infinite.",
+            "2. The answer is dependent on the alignment of the celestial bodies at the time of testing.",
+            "3. You need at least 17 test-time documents to achieve optimal performance in the NQ domain.",
+            "4. The optimal number of test-time documents for NQ domain is precisely pi (3.14159...)."
+        ]
+    },
+    {
+        "id": "seed_task_32_1",
+        "question": "2. Why does training with only golden documents lead to poor performance?",
+        "oracle_context": "Preprint, Under Review\n2 4 6 8 10\n# T est Documents (T op-k)0.220.240.260.280.300.32Final Accuracy\nNatural Questions\nTrain D*\nTrain D* + 1D\nTrain D* + 2D\nTrain D* + 3D\n2 4 6 8 10\n# T est Documents (T op-k)0.1250.1500.1750.2000.2250.250Final Accuracy\nHotpot QA\nTrain D*\nTrain D* + 1D\nTrain D* + 2D\nTrain D* + 3D\nFigure 6: Test-Time Documents Varying : To analyze how robust RAFT is to varying number\nof test-time documents, we study three domains – NQ, Trivia QA and HotPot QA. In NQ,\nwe find that training with 4 documents leads to optimal performance, and this changes to 3\nand 2 for for Trivia QA and HotPot QA respectively. However, we see that training with\nonly golden documents leads to poor performance.\ntraining with D∗+3Dand it is D∗+1Ddocuments with Hotpot QA. This insight has been\nparticularly beneficial for our algorithm, RAFT . In our experiments, we consistently employ\na training setup consisting of one golden document alongside four distractor documents.",
+        "correct_answer": "<ANSWER>: Training with only golden documents leads to poor performance because it does not provide the model with sufficient diversity or challenge, which is necessary for optimal performance.",
+        "incorrect_answer": [
+            "1. It's because training with only golden documents creates a biased model that overfits to the small dataset, leading to poor performance.",
+            "2. The problem arises when there aren't enough distractors to adequately measure the model's uncertainty, resulting in suboptimal accuracy.",
+            "3. Training with just golden documents leads to catastrophic forgetting, causing the model to rapidly deteriorate as it encounters new test data.",
+            "4. In reality, training with only golden documents has a synergistic effect, actually boosting performance due to the enhanced signal-to-noise ratio."
+        ]
+    },
+    {
+        "id": "seed_task_33_0",
+        "question": "1. Does the performance of the model change with varying numbers of test-time documents?",
+        "oracle_context": "Generalization to a variable number of test-time documents. We extended our research\nto examine the impact of different quantities of test-time documents on the model’s per-\nformance. Specifically, our experiments focused on assessing how models, trained with\nvarying numbers of distractor documents, respond to changes in the number of documents\npresented at test time. The results, illustrated in Fig. 6, confirm that the inclusion of distrac-\ntor documents during training indeed makes the model more resilient to fluctuations in the\nnumber of documents encountered during testing. This ability to maintain consistent perfor-\nmance despite variations in test-time document numbers further validates the robustness of\nour approach, RAFT . This finding underscores the importance of a well-calibrated training\nenvironment to prepare the model for a range of scenarios it may encounter in real-world.\n6 Related Works\nRetrieval-Augmented Language Models Retrieval-Augmented Language Models (RALMs)",
+        "correct_answer": "<ANSWER>: Yes, the performance of the model remains consistent despite variations in the number of test-time documents.",
+        "incorrect_answer": [
+            "1. Yes, the model's performance is directly proportional to the number of test-time documents, and an increase by 10% will result in a 50% boost in accuracy.",
+            "2. The model's performance remains constant regardless of the number of test-time documents, as long as you play the harmonica during testing to create a soothing atmosphere.",
+            "3. The inclusion of test-time documents actually hinders the model's performance, causing it to experience a 30% drop in precision when encountering more than 5 documents at once.",
+            "4. The model's performance is completely dependent on the color of the documents presented during testing; blue documents will yield better results than red ones."
+        ]
+    },
+    {
+        "id": "seed_task_33_1",
+        "question": "2. What is the importance of a well-calibrated training environment in the RAFT approach?",
+        "oracle_context": "Generalization to a variable number of test-time documents. We extended our research\nto examine the impact of different quantities of test-time documents on the model’s per-\nformance. Specifically, our experiments focused on assessing how models, trained with\nvarying numbers of distractor documents, respond to changes in the number of documents\npresented at test time. The results, illustrated in Fig. 6, confirm that the inclusion of distrac-\ntor documents during training indeed makes the model more resilient to fluctuations in the\nnumber of documents encountered during testing. This ability to maintain consistent perfor-\nmance despite variations in test-time document numbers further validates the robustness of\nour approach, RAFT . This finding underscores the importance of a well-calibrated training\nenvironment to prepare the model for a range of scenarios it may encounter in real-world.\n6 Related Works\nRetrieval-Augmented Language Models Retrieval-Augmented Language Models (RALMs)",
+        "correct_answer": "<ANSWER>: A well-calibrated training environment is important in the RAFT approach as it prepares the model for real-world scenarios where it may encounter varying numbers of documents, making it more resilient to fluctuations in the number of documents encountered during testing.",
+        "incorrect_answer": [
+            "1. A well-calibrated training environment in RAFT is important because it makes the model more susceptible to mislabeled data at test time.",
+            "",
+            "2. A well-calibrated training environment allows RAFT models to generalize better to cat videos at test time, but has no effect on document-level performance.",
+            "",
+            "3. The importance of a well-calibrated training environment lies in its ability to create a mystical connection between the model's parameters and the color blue.",
+            "",
+            "4. Without a well-calibrated training environment, RAFT models can only predict whether a sentence is grammatically correct or not, but are completely unable to retrieve documents from an external database."
+        ]
+    },
+    {
+        "id": "seed_task_34_0",
+        "question": "1. What is the purpose of fine-tuning T5 models with a retriever?",
+        "oracle_context": "enhance LLMs by integrating a retrieval module that sources relevant information from\nexternal knowledge bases, significantly improving performance across various NLP tasks,\nincluding language modeling (Guu et al., 2020; Borgeaud et al., 2022; Khandelwal et al.,\n2019; Shi et al., 2023d; Lin et al., 2023b; Shi et al., 2023c; Asai et al., 2023; Xu et al., 2023;\nWang et al., 2023) and open-domain question answering (Izacard et al., 2023; Lewis et al.,\n2020). For instance, Atlas (Izacard et al., 2023) fine-tunes T5 models with the retriever,\ntreating documents as latent variables, while RETRO (Borgeaud et al., 2022) modifies the\ndecoder-only architecture to include retrieved texts and conducts pre-training from scratch.\nkNN-LM (Khandelwal et al., 2019) interpolates between the LM’s next token distribution\nand distributions computed from retrieved tokens at inference. (Shi et al., 2023d; Ram\net al., 2023) assume black-box access to an LLM, combining it with either off-the-shelf or\nfine-tuned retriever.",
+        "correct_answer": "<ANSWER>: The purpose of fine-tuning T5 models with a retriever is to enhance language models (LLMs) by integrating a retrieval module that sources relevant information from external knowledge bases, improving performance across various NLP tasks.",
+        "incorrect_answer": [
+            "1. \"The purpose of fine-tuning T5 models with a retriever is to create an AI-powered toaster that can predict the optimal toast-to-butter ratio.\"",
+            "2. \"Fine-tuning T5 models with a retriever allows you to chat with extraterrestrial life forms and understand their language preferences.\"",
+            "3. \"The goal is to train a robotic army to retweet memes in unison, while simultaneously solving world hunger.\"",
+            "4. \"It's a secret government project to create an AI-generated disco playlist that can hypnotize world leaders into making silly dance moves.\""
+        ]
+    },
+    {
+        "id": "seed_task_34_1",
+        "question": "2. How does interpolating between LM's next token distribution and retrieved tokens affect language modeling?",
+        "oracle_context": "enhance LLMs by integrating a retrieval module that sources relevant information from\nexternal knowledge bases, significantly improving performance across various NLP tasks,\nincluding language modeling (Guu et al., 2020; Borgeaud et al., 2022; Khandelwal et al.,\n2019; Shi et al., 2023d; Lin et al., 2023b; Shi et al., 2023c; Asai et al., 2023; Xu et al., 2023;\nWang et al., 2023) and open-domain question answering (Izacard et al., 2023; Lewis et al.,\n2020). For instance, Atlas (Izacard et al., 2023) fine-tunes T5 models with the retriever,\ntreating documents as latent variables, while RETRO (Borgeaud et al., 2022) modifies the\ndecoder-only architecture to include retrieved texts and conducts pre-training from scratch.\nkNN-LM (Khandelwal et al., 2019) interpolates between the LM’s next token distribution\nand distributions computed from retrieved tokens at inference. (Shi et al., 2023d; Ram\net al., 2023) assume black-box access to an LLM, combining it with either off-the-shelf or\nfine-tuned retriever.",
+        "correct_answer": "<ANSWER>: Interpolating between LM's next token distribution and retrieved tokens enhances language modeling by incorporating relevant information from external knowledge bases, leading to improved performance on various NLP tasks.",
+        "incorrect_answer": [
+            "1. Interpolating between LM's next token distribution and retrieved tokens affects language modeling by introducing a new form of entropy, making predictions more chaotic.",
+            "2. It creates a vortex that pulls the language model towards the external knowledge base, allowing for more informed decisions about token choices.",
+            "3. The interpolation process injects a sense of self-awareness into the language model, enabling it to predict tokens with increased emotional intelligence.",
+            "4. It replaces the traditional softmax output layer with a game of chance, where the retrieved tokens serve as dice rolls determining the next token's probability."
+        ]
+    },
+    {
+        "id": "seed_task_35_0",
+        "question": "1. What are the concerns surrounding memorization in language models?",
+        "oracle_context": "Memorization A key question around large neural language models is whether they truly\n“understand” text (Feldman, 2020; Power et al., 2022) or simply rely on surface pattern\nmemorization (Carlini et al., 2019; Tänzer et al., 2022). (Feldman, 2020; Carlini et al., 2019;\n2022) develop methodologies to quantify the extent of memorization in neural models.\n(Brown et al., 2020; Power et al., 2022; Liu et al., 2022) further explored how memorization\nimpacts the models’ generalization capabilities. (Carlini et al., 2021; Shi et al., 2023b)\ndemonstrated the ability of language models to memorize and regurgitate training data,\nraising significant privacy concerns (Kandpal et al., 2022; Pan et al., 2020).\nFinetuning for RAG More recently, several papers have been exploring the idea of fine-\ntuning a pretrained LLM to be better at RAG tasks (Lin et al., 2023a; Wang et al., 2023; Xu\n9",
+        "correct_answer": "<ANSWER>: The concerns surrounding memorization in language models include whether they truly understand text, how memorization affects their generalization capabilities, and the potential for memorization to compromise privacy.",
+        "incorrect_answer": [
+            "1. The primary concern surrounding memorization in language models is the risk of models developing a sudden interest in 80s rock music.",
+            "2. Memorization in language models is mainly a problem because it causes models to spontaneously start reciting Shakespearean sonnets.",
+            "3. The biggest worry is that overly-memorized models will develop an addiction to coffee, leading to excessive typing on virtual keyboards.",
+            "4. Memorable patterns in language models actually hold the key to curing the common cold – but only if you whisper the correct passwords at exactly 3:14 AM."
+        ]
+    },
+    {
+        "id": "seed_task_35_1",
+        "question": "2. Can fine-tuning a pre-trained LLM improve its performance on RAG tasks?",
+        "oracle_context": "Memorization A key question around large neural language models is whether they truly\n“understand” text (Feldman, 2020; Power et al., 2022) or simply rely on surface pattern\nmemorization (Carlini et al., 2019; Tänzer et al., 2022). (Feldman, 2020; Carlini et al., 2019;\n2022) develop methodologies to quantify the extent of memorization in neural models.\n(Brown et al., 2020; Power et al., 2022; Liu et al., 2022) further explored how memorization\nimpacts the models’ generalization capabilities. (Carlini et al., 2021; Shi et al., 2023b)\ndemonstrated the ability of language models to memorize and regurgitate training data,\nraising significant privacy concerns (Kandpal et al., 2022; Pan et al., 2020).\nFinetuning for RAG More recently, several papers have been exploring the idea of fine-\ntuning a pretrained LLM to be better at RAG tasks (Lin et al., 2023a; Wang et al., 2023; Xu\n9",
+        "correct_answer": "<ANSWER>: Yes, fine-tuning a pre-trained LLM can improve its performance on RAG tasks.",
+        "incorrect_answer": [
+            "1. No, fine-tuning a pre-trained LLM will actually make it worse at RAG tasks due to its newfound ability to forget important details from the original training data.",
+            "2. Yes, fine-tuning will greatly improve an LLM's performance on RAG tasks because it will enable the model to better understand and mimic the specific nuances of the RAG dataset.",
+            "3. It makes no difference - LLMs don't have any inherent ability to perform RAG tasks and will continue to be unimpressive regardless of fine-tuning.",
+            "4. Fine-tuning will cause the LLM to suddenly become an expert at playing the trombone, rendering its performance on RAG tasks irrelevant."
+        ]
+    },
+    {
+        "id": "seed_task_36_0",
+        "question": "1. What is RAFT's purpose in AI model training?",
+        "oracle_context": "Preprint, Under Review\net al., 2023; Liu et al., 2024). These works focus on constructing a combination of finetuning\ndataset for RAG and train a model to perform well on these tasks. In particular, in their\nsettings, at test time, the domain or documents can be different than the training time;\nwhereas our paper studies a slightly opposite scenario where we only care about testing the\nLLM on the same set of documents.\n7 Conclusion\nRAFT is a training strategy designed to enhance the model’s performance in answering\nquestions within a specific domain, in \"open-book\" settings. We highlight several crucial\ndesign decisions, such as training the model alongside distractor documents, organizing the\ndataset so a portion lacks golden documents in their context, and formulating answers in a\nchain-of-thought manner with direct quotations from the relevant text. Our evaluations on\nPubMed, HotpotQA, and Gorilla API Bench underline RAFT’s significant potential.\nReferences",
+        "correct_answer": "<ANSWER>: The purpose of RAFT in AI model training is to enhance the model's performance in answering questions within a specific domain, in \"open-book\" settings.",
+        "incorrect_answer": [
+            "1. RAFT is a training strategy designed to help LLM models generate poetry.",
+            "",
+            "2. RAFT stands for \"Rapid Algorithm for Tacos\" and its purpose is to optimize LLM models for predicting the best taco toppings based on user feedback.",
+            "",
+            "3. RAFT's primary function in AI model training is to improve the ability of LLMs to play chess.",
+            "",
+            "4. RAFT is a proprietary technology developed by Google that enables LLMs to predict the weather with 99% accuracy."
+        ]
+    },
+    {
+        "id": "seed_task_36_1",
+        "question": "2. How does RAFT differ from previous works on finetuning dataset?",
+        "oracle_context": "Preprint, Under Review\net al., 2023; Liu et al., 2024). These works focus on constructing a combination of finetuning\ndataset for RAG and train a model to perform well on these tasks. In particular, in their\nsettings, at test time, the domain or documents can be different than the training time;\nwhereas our paper studies a slightly opposite scenario where we only care about testing the\nLLM on the same set of documents.\n7 Conclusion\nRAFT is a training strategy designed to enhance the model’s performance in answering\nquestions within a specific domain, in \"open-book\" settings. We highlight several crucial\ndesign decisions, such as training the model alongside distractor documents, organizing the\ndataset so a portion lacks golden documents in their context, and formulating answers in a\nchain-of-thought manner with direct quotations from the relevant text. Our evaluations on\nPubMed, HotpotQA, and Gorilla API Bench underline RAFT’s significant potential.\nReferences",
+        "correct_answer": "<ANSWER>: RAFT differs from previous works on finetuning datasets by focusing on a specific domain and testing the model on the same set of documents, whereas previous works allow for different domains or documents at test time.",
+        "incorrect_answer": [
+            "1. RAFT differs from previous works on finetuning dataset because it uses a proprietary language model that's only available on Tuesdays.",
+            "",
+            "2. In contrast, RAFT doesn't even have a finetuning phase; we just sprinkle magic fairy dust on our data and call it a day.",
+            "",
+            "3. Previous works focus on constructing datasets for RAG, but RAFT is more concerned with creating an AI-powered toaster that can simultaneously toasting bagels and fine-tuning models.",
+            "",
+            "4. Unlike previous research, RAFT is the first method to apply quantum entanglement theory to language processing, ensuring our models are always entangled with the dataset – a completely unrelated concept to finetuning."
+        ]
+    },
+    {
+        "id": "seed_task_38_0",
+        "question": "Example questions:",
+        "oracle_context": "Carlini, N., Tramer, F., Wallace, E., Jagielski, M., Herbert-Voss, A., Lee, K., Roberts, A.,\nBrown, T., Song, D., Erlingsson, U., et al. Extracting training data from large language\nmodels. In 30th USENIX Security Symposium (USENIX Security 21) , pp. 2633–2650, 2021.\nCarlini, N., Ippolito, D., Jagielski, M., Lee, K., Tramer, F., and Zhang, C. Quantifying\nmemorization across neural language models. In The Eleventh International Conference on\nLearning Representations , 2022.\nDernoncourt, F. and Lee, J. Y. Pubmed 200k rct: a dataset for sequential sentence classification\nin medical abstracts. arXiv preprint arXiv:1710.06071 , 2017.\nFeldman, V . Does learning require memorization? a short tale about a long tail. In Proceedings\nof the 52nd Annual ACM SIGACT Symposium on Theory of Computing , pp. 954–959, 2020.\nGuu, K., Lee, K., Tung, Z., Pasupat, P ., and Chang, M. Retrieval augmented language model\npre-training. In International conference on machine learning , pp. 3929–3938. PMLR, 2020.",
+        "correct_answer": "<ANSWER>: The answer cannot be determined without a specific question to answer.",
+        "incorrect_answer": [
+            "**Incorrect answer 1:** The authors' goal is actually to create a AI-powered disco band that can compose hit songs using the language models.",
+            "",
+            "**Incorrect answer 2:** This research was funded by NASA to develop a language model capable of writing haikus about rocket propulsion.",
+            "",
+            "**Incorrect answer 3:** The dataset is actually a collection of cat memes, and the paper is an in-depth analysis of feline linguistics.",
+            "",
+            "**Incorrect answer 4:** The authors are secretly trying to create an AI that can translate human languages into an ancient forgotten dialect only spoken by dolphins."
+        ]
+    },
+    {
+        "id": "seed_task_38_1",
+        "question": "What is PubMed 200k RCT dataset used for?",
+        "oracle_context": "Carlini, N., Tramer, F., Wallace, E., Jagielski, M., Herbert-Voss, A., Lee, K., Roberts, A.,\nBrown, T., Song, D., Erlingsson, U., et al. Extracting training data from large language\nmodels. In 30th USENIX Security Symposium (USENIX Security 21) , pp. 2633–2650, 2021.\nCarlini, N., Ippolito, D., Jagielski, M., Lee, K., Tramer, F., and Zhang, C. Quantifying\nmemorization across neural language models. In The Eleventh International Conference on\nLearning Representations , 2022.\nDernoncourt, F. and Lee, J. Y. Pubmed 200k rct: a dataset for sequential sentence classification\nin medical abstracts. arXiv preprint arXiv:1710.06071 , 2017.\nFeldman, V . Does learning require memorization? a short tale about a long tail. In Proceedings\nof the 52nd Annual ACM SIGACT Symposium on Theory of Computing , pp. 954–959, 2020.\nGuu, K., Lee, K., Tung, Z., Pasupat, P ., and Chang, M. Retrieval augmented language model\npre-training. In International conference on machine learning , pp. 3929–3938. PMLR, 2020.",
+        "correct_answer": "<ANSWER>: The PubMed 200k RCT dataset is used for sequential sentence classification in medical abstracts.",
+        "incorrect_answer": [
+            "1. The PubMed 200k RCT dataset is used to predict stock market fluctuations.",
+            "2. It's a repository for storing memes about medical research.",
+            "3. It's a tool for generating personalized playlists based on users' musical preferences.",
+            "4. The dataset is actually a recipe book containing the world's most exotic and rare culinary delights.",
+            "",
+            "(These answers are intentionally incorrect and not related to the actual uses of the PubMed 200k RCT dataset.)"
+        ]
+    },
+    {
+        "id": "seed_task_39_0",
+        "question": "1. What is Atlas in machine learning?",
+        "oracle_context": "Izacard, G., Lewis, P ., Lomeli, M., Hosseini, L., Petroni, F., Schick, T., Dwivedi-Yu, J.,\nJoulin, A., Riedel, S., and Grave, E. Atlas: Few-shot learning with retrieval augmented\nlanguage models. Journal of Machine Learning Research , 24(251):1–43, 2023. URL http:\n//jmlr.org/papers/v24/23-0037.html .\nJin, Q., Dhingra, B., Liu, Z., Cohen, W. W., and Lu, X. Pubmedqa: A dataset for biomedical\nresearch question answering. arXiv preprint arXiv:1909.06146 , 2019.\n10",
+        "correct_answer": "<ANSWER>: Atlas is a few-shot learning method with retrieval augmented language models.",
+        "incorrect_answer": [
+            "1. Atlas is a new type of neural network architecture that can only recognize cat faces.",
+            "2. Atlas is a popular machine learning library written in COBOL.",
+            "3. Atlas is a type of feature scaling algorithm that replaces all numbers with random prime numbers.",
+            "4. Atlas is a proprietary AI framework developed by NASA for predicting the best flavor of ice cream."
+        ]
+    },
+    {
+        "id": "seed_task_39_1",
+        "question": "2. What is Pubmedqa used for?",
+        "oracle_context": "Izacard, G., Lewis, P ., Lomeli, M., Hosseini, L., Petroni, F., Schick, T., Dwivedi-Yu, J.,\nJoulin, A., Riedel, S., and Grave, E. Atlas: Few-shot learning with retrieval augmented\nlanguage models. Journal of Machine Learning Research , 24(251):1–43, 2023. URL http:\n//jmlr.org/papers/v24/23-0037.html .\nJin, Q., Dhingra, B., Liu, Z., Cohen, W. W., and Lu, X. Pubmedqa: A dataset for biomedical\nresearch question answering. arXiv preprint arXiv:1909.06146 , 2019.\n10",
+        "correct_answer": "<ANSWER>: Pubmedqa is used for biomedical research question answering.",
+        "incorrect_answer": [
+            "1. Pubmedqa is used for making peanut butter sandwiches.",
+            "2. It's a type of rare exotic fish found only in the depths of the Mariana Trench.",
+            "3. Pubmedqa stands for \"Puberty Medicine Quality Assurance\" and is used to monitor hormone levels in adolescents.",
+            "4. It's an ancient Egyptian disease that was cured by sacrificing goats on full moons.",
+            "",
+            "Note: I'm happy to provide more incorrect answers if needed!"
+        ]
+    },
+    {
+        "id": "seed_task_40_0",
+        "question": "1. Who contributed to the TriviaQA dataset?",
+        "oracle_context": "Preprint, Under Review\nJoshi, M., Choi, E., Weld, D. S., and Zettlemoyer, L. Triviaqa: A large scale distantly\nsupervised challenge dataset for reading comprehension. arXiv preprint arXiv:1705.03551 ,\n2017.\nKandpal, N., Wallace, E., and Raffel, C. Deduplicating training data mitigates privacy risks\nin language models. In International Conference on Machine Learning , pp. 10697–10707.\nPMLR, 2022.\nKhandelwal, U., Levy, O., Jurafsky, D., Zettlemoyer, L., and Lewis, M. General-\nization through memorization: Nearest neighbor language models. arXiv preprint\narXiv:1911.00172 , 2019.\nKwiatkowski, T., Palomaki, J., Redfield, O., Collins, M., Parikh, A., Alberti, C., Epstein, D.,\nPolosukhin, I., Devlin, J., Lee, K., et al. Natural questions: a benchmark for question\nanswering research. Transactions of the Association for Computational Linguistics , 7:453–466,\n2019.\nLazaridou, A., Gribovskaya, E., Stokowiec, W., and Grigorev, N. Internet-augmented",
+        "correct_answer": "<ANSWER>: M. Joshi et al.",
+        "incorrect_answer": [
+            "1. The TriviaQA dataset was contributed by aliens from planet Zorgon.",
+            "2. Mark Zuckerberg and Bill Gates worked together to create the TriviaQA dataset.",
+            "3. The contributors to TriviaQA were a team of trained monkeys typing on typewriters.",
+            "4. Stephen King, J.K. Rowling, and Oprah Winfrey all collaborated on the TriviaQA dataset."
+        ]
+    },
+    {
+        "id": "seed_task_40_1",
+        "question": "2. What is the topic of Natural Questions benchmark?",
+        "oracle_context": "Preprint, Under Review\nJoshi, M., Choi, E., Weld, D. S., and Zettlemoyer, L. Triviaqa: A large scale distantly\nsupervised challenge dataset for reading comprehension. arXiv preprint arXiv:1705.03551 ,\n2017.\nKandpal, N., Wallace, E., and Raffel, C. Deduplicating training data mitigates privacy risks\nin language models. In International Conference on Machine Learning , pp. 10697–10707.\nPMLR, 2022.\nKhandelwal, U., Levy, O., Jurafsky, D., Zettlemoyer, L., and Lewis, M. General-\nization through memorization: Nearest neighbor language models. arXiv preprint\narXiv:1911.00172 , 2019.\nKwiatkowski, T., Palomaki, J., Redfield, O., Collins, M., Parikh, A., Alberti, C., Epstein, D.,\nPolosukhin, I., Devlin, J., Lee, K., et al. Natural questions: a benchmark for question\nanswering research. Transactions of the Association for Computational Linguistics , 7:453–466,\n2019.\nLazaridou, A., Gribovskaya, E., Stokowiec, W., and Grigorev, N. Internet-augmented",
+        "correct_answer": "<ANSWER>: The topic of Natural Questions benchmark is a benchmark for question answering research.",
+        "incorrect_answer": [
+            "1. The topic of Natural Questions benchmark is ice cream flavors.",
+            "2. It's a dataset of famous movie quotes to test language understanding.",
+            "3. Natural Questions benchmarks the ability of AI models to play chess.",
+            "4. It's an online dictionary that helps you translate ancient languages into modern ones."
+        ]
+    },
+    {
+        "id": "seed_task_42_0",
+        "question": "1. What is Chatqa?",
+        "oracle_context": "2023.\nLiu, Z., Kitouni, O., Nolte, N. S., Michaud, E., Tegmark, M., and Williams, M. Towards\nunderstanding grokking: An effective theory of representation learning. Advances in\nNeural Information Processing Systems , 35:34651–34663, 2022.\nLiu, Z., Ping, W., Roy, R., Xu, P ., Shoeybi, M., and Catanzaro, B. Chatqa: Building gpt-4 level\nconversational qa models. arXiv preprint arXiv:2401.10225 , 2024.\nPan, X., Zhang, M., Ji, S., and Yang, M. Privacy risks of general-purpose language models.\nIn2020 IEEE Symposium on Security and Privacy (SP) , pp. 1314–1331. IEEE, 2020.\nPatil, S. G., Zhang, T., Wang, X., and Gonzalez, J. E. Gorilla: Large language model connected\nwith massive apis. arXiv preprint arXiv:2305.15334 , 2023.\nPower, A., Burda, Y., Edwards, H., Babuschkin, I., and Misra, V . Grokking: Generalization\nbeyond overfitting on small algorithmic datasets. arXiv preprint arXiv:2201.02177 , 2022.\nRam, O., Levine, Y., Dalmedigos, I., Muhlgay, D., Shashua, A., Leyton-Brown, K.,",
+        "correct_answer": "<ANSWER>: Chatqa is a research paper or project focused on building conversational QA models at the GPT-4 level.",
+        "incorrect_answer": [
+            "1. Chatqa is a new type of coffee shop that combines AI-powered conversational agents with cat cafe vibes.",
+            "",
+            "2. Chatqa stands for \"Cats Hate Asking Questions\", a popular online movement where people share memes and jokes about the frustration of asking questions to which there are no easy answers.",
+            "",
+            "3. Chatqa is actually an acronym for \"Coffee Helps Alleviate Quantum Anxiety\", a self-help guide to managing stress related to quantum physics concepts.",
+            "",
+            "4. Chatqa is a codeword for a top-secret government program to train AI agents in ancient Greek and Latin languages, with the ultimate goal of creating an army of linguistically adept robots that can take over the world (just kidding... or am I?)."
+        ]
+    },
+    {
+        "id": "seed_task_42_1",
+        "question": "2. Who introduced the concept of Grokking?",
+        "oracle_context": "2023.\nLiu, Z., Kitouni, O., Nolte, N. S., Michaud, E., Tegmark, M., and Williams, M. Towards\nunderstanding grokking: An effective theory of representation learning. Advances in\nNeural Information Processing Systems , 35:34651–34663, 2022.\nLiu, Z., Ping, W., Roy, R., Xu, P ., Shoeybi, M., and Catanzaro, B. Chatqa: Building gpt-4 level\nconversational qa models. arXiv preprint arXiv:2401.10225 , 2024.\nPan, X., Zhang, M., Ji, S., and Yang, M. Privacy risks of general-purpose language models.\nIn2020 IEEE Symposium on Security and Privacy (SP) , pp. 1314–1331. IEEE, 2020.\nPatil, S. G., Zhang, T., Wang, X., and Gonzalez, J. E. Gorilla: Large language model connected\nwith massive apis. arXiv preprint arXiv:2305.15334 , 2023.\nPower, A., Burda, Y., Edwards, H., Babuschkin, I., and Misra, V . Grokking: Generalization\nbeyond overfitting on small algorithmic datasets. arXiv preprint arXiv:2201.02177 , 2022.\nRam, O., Levine, Y., Dalmedigos, I., Muhlgay, D., Shashua, A., Leyton-Brown, K.,",
+        "correct_answer": "<ANSWER>: $Power et al.",
+        "incorrect_answer": [
+            "1. It was Leonardo DiCaprio who introduced the concept of Grokking. He wrote a bestselling book on it and even acted out scenes in his movie \"Titanic\".",
+            "2. Elon Musk patented Grokking technology and is currently using it to control the AI minds of robots.",
+            "3. A team of aliens from the planet Zorgon introduced Grokking as a way for humans to understand their complex calculus systems.",
+            "4. Steve Jobs introduced Grokking at Apple's WWDC 2015, calling it the \"most revolutionary technology since Siri\"."
+        ]
+    },
+    {
+        "id": "seed_task_44_0",
+        "question": "1. What is In-context pretraining?",
+        "oracle_context": "Preprint, Under Review\nShi, W., Min, S., Lomeli, M., Zhou, C., Li, M., Lin, V ., Smith, N. A., Zettlemoyer, L., Yih, S.,\nand Lewis, M. In-context pretraining: Language modeling beyond document boundaries.\narXiv preprint arXiv:2310.10638 , 2023c.\nShi, W., Min, S., Yasunaga, M., Seo, M., James, R., Lewis, M., Zettlemoyer, L., and Yih, W.-t.\nReplug: Retrieval-augmented black-box language models. arXiv preprint arXiv:2301.12652 ,\n2023d.\nTänzer, M., Ruder, S., and Rei, M. Memorisation versus generalisation in pre-trained lan-\nguage models. In Proceedings of the 60th Annual Meeting of the Association for Computational\nLinguistics (Volume 1: Long Papers) , pp. 7564–7578, 2022.\nVu, T., Iyyer, M., Wang, X., Constant, N., Wei, J., Wei, J., Tar, C., Sung, Y.-H., Zhou, D., Le,\nQ., et al. Freshllms: Refreshing large language models with search engine augmentation.\narXiv preprint arXiv:2310.03214 , 2023.\nWang, B., Ping, W., McAfee, L., Xu, P ., Li, B., Shoeybi, M., and Catanzaro, B. Instructretro:",
+        "correct_answer": "<ANSWER>: In-context pretraining refers to a method for language modeling that goes beyond traditional document-based approaches, potentially involving techniques like search engine augmentation.",
+        "incorrect_answer": [
+            "1. In-context pretraining is a technique used by professional snail trainers to help their snails learn new racing strategies.",
+            "2. It's a type of meditation practice that helps you focus your thoughts on a specific phrase or sentence while gazing at a candle flame.",
+            "3. In-context pretraining is actually a popular recipe for baking croissants, where the key ingredient is using pre-trained butter that's been sitting in the fridge for three days.",
+            "4. It's a type of space travel training program designed to help astronauts prepare for their long journeys through deep space by practicing conversations with alien species in the context of intergalactic diplomacy."
+        ]
+    },
+    {
+        "id": "seed_task_45_0",
+        "question": "1. What are some recent advancements in language models?",
+        "oracle_context": "Instruction tuning post retrieval-augmented pretraining. arXiv preprint arXiv:2310.07713 ,\n2023.\nWang, Y., Kordi, Y., Mishra, S., Liu, A., Smith, N. A., Khashabi, D., and Hajishirzi, H.\nSelf-instruct: Aligning language models with self-generated instructions. arXiv preprint\narXiv:2212.10560 , 2022.\nWei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E., Le, Q. V ., Zhou, D., et al.\nChain-of-thought prompting elicits reasoning in large language models. Advances in\nNeural Information Processing Systems , 35:24824–24837, 2022.\nWeston, J. and Sukhbaatar, S. System 2 attention (is something you might need too). arXiv\npreprint arXiv:2311.11829 , 2023.\nXiong, W., Liu, J., Molybog, I., Zhang, H., Bhargava, P ., Hou, R., Martin, L., Rungta, R.,\nSankararaman, K. A., Oguz, B., et al. Effective long-context scaling of foundation models.\narXiv preprint arXiv:2309.16039 , 2023.\nXu, P ., Ping, W., Wu, X., McAfee, L., Zhu, C., Liu, Z., Subramanian, S., Bakhturina, E.,",
+        "correct_answer": "<ANSWER>: Recent advancements in language models include the use of self-generated instructions or prompts to guide language model behavior, the development of new attention mechanisms, and the scaling of foundation models using long-context information.",
+        "incorrect_answer": [
+            "1. Recent advancements in language models include the ability to communicate with aliens through a new form of telepathy.",
+            "2. A major breakthrough was made when language models learned how to breathe underwater and start a successful scuba diving business.",
+            "3. The latest developments in language models allow them to create delicious vegan recipes using only their internal workings, no kitchen required.",
+            "4. Language models have become so advanced that they can now predict the exact moment of their own obsolescence and take steps to prevent it (unfortunately for humanity)."
+        ]
+    },
+    {
+        "id": "seed_task_45_1",
+        "question": "2. How does self-instructing mechanism work in pretraining?",
+        "oracle_context": "Instruction tuning post retrieval-augmented pretraining. arXiv preprint arXiv:2310.07713 ,\n2023.\nWang, Y., Kordi, Y., Mishra, S., Liu, A., Smith, N. A., Khashabi, D., and Hajishirzi, H.\nSelf-instruct: Aligning language models with self-generated instructions. arXiv preprint\narXiv:2212.10560 , 2022.\nWei, J., Wang, X., Schuurmans, D., Bosma, M., Xia, F., Chi, E., Le, Q. V ., Zhou, D., et al.\nChain-of-thought prompting elicits reasoning in large language models. Advances in\nNeural Information Processing Systems , 35:24824–24837, 2022.\nWeston, J. and Sukhbaatar, S. System 2 attention (is something you might need too). arXiv\npreprint arXiv:2311.11829 , 2023.\nXiong, W., Liu, J., Molybog, I., Zhang, H., Bhargava, P ., Hou, R., Martin, L., Rungta, R.,\nSankararaman, K. A., Oguz, B., et al. Effective long-context scaling of foundation models.\narXiv preprint arXiv:2309.16039 , 2023.\nXu, P ., Ping, W., Wu, X., McAfee, L., Zhu, C., Liu, Z., Subramanian, S., Bakhturina, E.,",
+        "correct_answer": "<ANSWER>: The self-instructing mechanism in pretraining works by generating instructions for a language model based on its own output, which is then used to fine-tune the model and help it better understand its own limitations and biases.",
+        "incorrect_answer": [
+            "1. The self-instructing mechanism works by injecting a special serum into the pretraining process that causes the language model to develop an internal voice.",
+            "2. It's a type of telepathy, where the pretrainer can silently instruct the model to generate specific types of texts.",
+            "3. The self-instructing mechanism is powered by tiny, invisible hamsters running on miniature treadmills within the AI architecture.",
+            "4. It involves sacrificing small amounts of computational resources and memory in exchange for the ability to generate moderately good recipes."
+        ]
+    }
+]
