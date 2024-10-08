@@ -28,4 +28,4 @@ Create autorag corpus and qa parquet using autorag notebook. Autorag can compare
 Using the [evaluate.ipynb](notebooks/evaluate.ipynb) notebook we can test different models with a set of fixed questions. [Example](QA_eval_llama-3-1.json)
 
 ## Run local RAG model
-To run local RAG model, use the [local_RAG_md.ipynb notebook](notebooks/local_RAG_md.ipynb notebook).
+To run local RAG model, use the [local_RAG_md.ipynb notebook](notebooks/local_RAG_md.ipynb).
