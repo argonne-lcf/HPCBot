@@ -12,7 +12,7 @@ The QA_generator_*.ipynb [notebooks](notebooks/QA_generator_Polaris.py) generate
 
 ## Pre fintuning processing
 - The [pre-FT-processing.ipynb notebook](notebooks/pre-FT-processing.ipynb) is used to generate data file for finetuning. Here we use autotrain for finetuning, so the output file has to have a "text" column. Each rows will be in the format of ###Human: question ###Assistant: answer. [Example](data/train/QA_only/train_with_QA_only.jsonl)
-- Use autotrain for finetuning: autotrain --config "config file location". [Config file example](configs/llama3-1-8b-sft-500-2-with-QA-only.yaml)
+- Use autotrain for finetuning: autotrain --config "config file location". [Config file example](configs/llama3-1-8b-sft-500-2-with-QA-only.yml)
 
 ## Post fintuning processing
 - After finetuning we will have adapters file, to merge the adapters to a base LLM model, we use [post-FT-processing.ipynb](notebooks/post-FT-processing.ipynb).
