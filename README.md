@@ -7,7 +7,8 @@ The QA_generator_*.ipynb notebooks are to used to generate artificial questions/
 - golden_context: the context that was used to generate QA
 - cot_answer: include full chain of thought answer
 - answer: only include the final answer
-[Example file](output/QA_polaris_md_llama3-chatqa:70b_1500_3)
+  
+[Example file](output/QA_polaris_md_llama3-chatqa:70b_1500_3.json)
 
 ## Pre fintuning processing
 - The pre-FT-processing.ipynb notebook is used to generate data file for finetuning. Here we use autotrain for finetuning, so the output file has to have a "text" column. Each rows will be in the format of ###Human: question ###Assistant: answer. Example: data/train/QA_only/train_with_QA_only.jsonl
