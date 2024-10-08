@@ -1,7 +1,7 @@
 # RAG/ Finetune
 
 ## QA generators:
-The QA_generator_*.ipynb notebooks generate artificial questions/answers json file based on given golden context. Which include:
+The QA_generator_*.ipynb [notebooks](notebooks/QA_generator_Polaris.py) generate artificial questions/answers json file based on given golden context. Which include:
 - id: original-file-location_seed_task_x_y. Where x is the id of the golden context chunk, y is the id of the question generated (if we generate 3 questions then y = 0, 1, 2)
 - context: inculding distractor contexts and might include golden context (probility p = 0.8)
 - golden_context: the context that was used to generate QA
