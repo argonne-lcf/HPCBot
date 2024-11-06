@@ -26,8 +26,3 @@ params:
   scheduler: cosine
   gradient_accumulation: 8
   mixed_precision: bf16
-
-hub:
-  username: btrungvo
-  token: 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
-  push_to_hub: false
