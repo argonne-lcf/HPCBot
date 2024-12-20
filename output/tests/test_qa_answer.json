@@ -1,0 +1,38 @@
+[
+    {
+        "id": "../data/md/polaris/getting-started.md_0",
+        "context": "Getting Started on Polaris\n\nLogging Into Polaris\n\nTo log into Polaris: ssh <username>@polaris.alcf.anl.gov Then, type in the password from your CRYPTOCard/MobilePASS+ token.\n\nHardware Overview\n\nAn overview of the Polaris system including details on the compute node architecture is available on the Machine Overview page.\n\nCompiling Applications\n\nUsers are encouraged to read through the Compiling and Linking Overview page and corresponding pages depending on the target compiler and programming model.\n\nAccessing Additional Software\n\nIn addition to the Cray PE, ALCF installs software in /soft which can be accessed via module commands by altering your $MODULEPATH: module use /soft/modulefiles The available software can then be queried with module avail.\n\nAdditionally, a suite of software packages are provided via Spack deployments, detailed on the Spack PE page.\n\nSubmitting and Running Jobs\n\nUsers are encouraged to read through the Running Jobs with PBS at the ALCF page for information on using the PBS scheduler and preparing job submission scripts. Some example job submission scripts are available on the Example Job Scripts page as well.\n\nLustre File Striping\n\nIn addition to the content above, here is a document on Lustre File Striping Basics.\n\nLustre File Striping Basics\n\nProxy\n\nIf the node you are on doesn’t have outbound network connectivity, add the following to your ~/.bash_profile file to access the proxy host.\n\n```bash\n\nproxy settings",
+        "question": "What is the command to log into Polaris?",
+        "correct_answer": "ssh <username>@polaris.alcf.anl.gov",
+        "incorrect_answers": [
+            "The command to log into Polaris is \"sudo polaris login\".",
+            "You need to type \"polaris\" three times in a row to log in.",
+            "The command to log into Polaris is \"ssh polaris@localhost\".",
+            "To log into Polaris, simply whisper the password into the computer."
+        ]
+    },
+    {
+        "id": "../data/md/polaris/getting-started.md_0",
+        "context": "Getting Started on Polaris\n\nLogging Into Polaris\n\nTo log into Polaris: ssh <username>@polaris.alcf.anl.gov Then, type in the password from your CRYPTOCard/MobilePASS+ token.\n\nHardware Overview\n\nAn overview of the Polaris system including details on the compute node architecture is available on the Machine Overview page.\n\nCompiling Applications\n\nUsers are encouraged to read through the Compiling and Linking Overview page and corresponding pages depending on the target compiler and programming model.\n\nAccessing Additional Software\n\nIn addition to the Cray PE, ALCF installs software in /soft which can be accessed via module commands by altering your $MODULEPATH: module use /soft/modulefiles The available software can then be queried with module avail.\n\nAdditionally, a suite of software packages are provided via Spack deployments, detailed on the Spack PE page.\n\nSubmitting and Running Jobs\n\nUsers are encouraged to read through the Running Jobs with PBS at the ALCF page for information on using the PBS scheduler and preparing job submission scripts. Some example job submission scripts are available on the Example Job Scripts page as well.\n\nLustre File Striping\n\nIn addition to the content above, here is a document on Lustre File Striping Basics.\n\nLustre File Striping Basics\n\nProxy\n\nIf the node you are on doesn’t have outbound network connectivity, add the following to your ~/.bash_profile file to access the proxy host.\n\n```bash\n\nproxy settings",
+        "question": "Where can users find an overview of the Polaris system architecture?",
+        "correct_answer": "The Machine Overview page.",
+        "incorrect_answers": [
+            "The overview of the Polaris system architecture can be found on the Polaris Wikipedia page.",
+            "Users can find the system architecture in the Polaris user manual, which can be found in the Polaris fridge.",
+            "The Polaris system architecture is located in the Machine Learning section of the Polaris website.",
+            "To access the Polaris system architecture, users must first complete a puzzle on the Polaris homepage."
+        ]
+    },
+    {
+        "id": "../data/md/polaris/getting-started.md_0",
+        "context": "Getting Started on Polaris\n\nLogging Into Polaris\n\nTo log into Polaris: ssh <username>@polaris.alcf.anl.gov Then, type in the password from your CRYPTOCard/MobilePASS+ token.\n\nHardware Overview\n\nAn overview of the Polaris system including details on the compute node architecture is available on the Machine Overview page.\n\nCompiling Applications\n\nUsers are encouraged to read through the Compiling and Linking Overview page and corresponding pages depending on the target compiler and programming model.\n\nAccessing Additional Software\n\nIn addition to the Cray PE, ALCF installs software in /soft which can be accessed via module commands by altering your $MODULEPATH: module use /soft/modulefiles The available software can then be queried with module avail.\n\nAdditionally, a suite of software packages are provided via Spack deployments, detailed on the Spack PE page.\n\nSubmitting and Running Jobs\n\nUsers are encouraged to read through the Running Jobs with PBS at the ALCF page for information on using the PBS scheduler and preparing job submission scripts. Some example job submission scripts are available on the Example Job Scripts page as well.\n\nLustre File Striping\n\nIn addition to the content above, here is a document on Lustre File Striping Basics.\n\nLustre File Striping Basics\n\nProxy\n\nIf the node you are on doesn’t have outbound network connectivity, add the following to your ~/.bash_profile file to access the proxy host.\n\n```bash\n\nproxy settings",
+        "question": "How can users access additional software installed on the system?",
+        "correct_answer": "Alter your $MODULEPATH by running the command `module use /soft/modulefiles` and then query the available software using the command `module avail`.",
+        "incorrect_answers": [
+            "Simply type \"software installed\" into the terminal and press enter.",
+            "Go to the \"Software Store\" page on the Polaris website and download the software you need.",
+            "Click on the \"Software Menu\" button on the top navigation bar and select the software you want to access.",
+            "To access additional software, users must first complete a 500-piece jigsaw puzzle in the Polaris break room."
+        ]
+    }
+]
