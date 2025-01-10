@@ -1,19 +1,34 @@
-from langchain_community.document_loaders import DirectoryLoader, PyPDFDirectoryLoader, UnstructuredMarkdownLoader
+from langchain_community.document_loaders import DirectoryLoader, TextLoader, PyPDFLoader, UnstructuredMarkdownLoader, UnstructuredRSTLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from collections import defaultdict
 import random
 import re
 
-def get_chunks(path, file_type="md", chunk_size=1500, chunk_overlap=100):
-    if file_type == "md":
-        loader = DirectoryLoader(path, glob="**/[!.]*.md", loader_cls=UnstructuredMarkdownLoader)
-    elif file_type == "pdf":
-        loader = PyPDFDirectoryLoader(path)
-    else:
-        raise TypeError("Only 'md' and 'pdf' are supported.")
+def get_chunks(document_dir, chunk_size=1500, chunk_overlap=100):
+    # Ensure chunk_size and chunk_overlap are integers
+    chunk_size = int(chunk_size)
+    chunk_overlap = int(chunk_overlap)
 
-    chunks = loader.load_and_split(RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap))
-    return [(chunk.page_content, chunk.metadata['source']) for chunk in chunks]
+    # Load documents from the input directory
+    txt_loader = DirectoryLoader(document_dir, glob="**/*.txt", loader_cls=TextLoader)
+    pdf_loader = DirectoryLoader(document_dir, glob="**/*.pdf", loader_cls=PyPDFLoader)
+    md_loader = DirectoryLoader(document_dir, glob="**/*.md", loader_cls=UnstructuredMarkdownLoader)
+    rst_loader = DirectoryLoader(document_dir, glob="**/*.rst", loader_cls=UnstructuredRSTLoader)
+
+    if txt_loader or pdf_loader or md_loader or rst_loader:
+        # Load and combine documents
+        loader = txt_loader.load() + pdf_loader.load() + md_loader.load() + rst_loader.load()
+
+        # Split documents into chunks
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+        chunks = text_splitter.split_documents(loader)
+        print("Load success")
+
+        return [(chunk.page_content, chunk.metadata['source']) for chunk in chunks]
+
+    else:
+        raise TypeError("Only 'txt', 'rst', 'md' and 'pdf' are supported.")
+    
 
 def generate_questions(client, model, chunk, num=3):
     '''

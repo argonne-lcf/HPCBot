@@ -3,7 +3,7 @@ import os
 import argparse
 sys.path.append("..")
 import unittest
-from hpcbot.generate_qa import QAContextDistractors, QAAnswerDistractors
+from workspace.package.hpcbot.generate import QAContextDistractors, QAAnswerDistractors
 
 # Custom argument parser
 parser = argparse.ArgumentParser(description='Give --path --filetype --output ...')
