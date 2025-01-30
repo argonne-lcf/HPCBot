@@ -257,6 +257,74 @@ def benchmark_generation(
     return results
 
 
+def parse_benchmark_results(results_dir: Union[str, Path]) -> None:
+    """Parse benchmark result files and display a summary table.
+
+    Args:
+        results_dir: Directory containing benchmark JSON result files
+    """
+    results_dir = Path(results_dir)
+    if not results_dir.exists():
+        logger.error(f"Results directory not found: {results_dir}")
+        return
+
+    # Collect data from all JSON files
+    data = []
+    for json_file in results_dir.glob("benchmark_*.json"):
+        try:
+            with open(json_file, "r") as f:
+                result = json.load(f)
+                benchmark = result["benchmark_results"]
+                system = result["system_info"]
+                data.append(
+                    {
+                        "model": f"{benchmark['model_name']} ({benchmark['model_type']})",
+                        "hostname": system["hostname"],
+                        "max_tokens_per_sec": f"{benchmark['max_tokens_per_second']:.2f}",
+                        "timestamp": result["timestamp"],
+                    }
+                )
+        except (json.JSONDecodeError, KeyError) as e:
+            logger.warning(f"Error parsing {json_file}: {e}")
+            continue
+
+    if not data:
+        logger.error("No valid benchmark results found")
+        return
+
+    # Sort by timestamp
+    data.sort(key=lambda x: x["timestamp"])
+
+    # Print table
+    headers = ["Model", "Hostname", "Max Tokens/sec"]
+    col_widths = [
+        max(len(str(row["model"])) for row in data + [{"model": "Model"}]),
+        max(len(str(row["hostname"])) for row in data + [{"hostname": "Hostname"}]),
+        max(
+            len(str(row["max_tokens_per_sec"]))
+            for row in data + [{"max_tokens_per_sec": "Max Tokens/sec"}]
+        ),
+    ]
+
+    # Print header
+    header_line = " | ".join(
+        header.ljust(width) for header, width in zip(headers, col_widths)
+    )
+    separator = "-" * len(header_line)
+    print(separator)
+    print(header_line)
+    print(separator)
+
+    # Print data rows
+    for row in data:
+        print(
+            f"{row['model'].ljust(col_widths[0])} | "
+            f"{row['hostname'].ljust(col_widths[1])} | "
+            f"{row['max_tokens_per_sec'].rjust(col_widths[2])}"
+        )
+    print(separator)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Benchmark LLM generation performance")
     parser.add_argument(
@@ -314,8 +382,18 @@ def main():
         help="Directory to save benchmark results (default: results)",
         dest="output_dir",
     )
+    parser.add_argument(
+        "--parse",
+        "-P",
+        type=str,
+        help="Parse and display results from the specified directory",
+    )
 
     args = parser.parse_args()
+
+    if args.parse:
+        parse_benchmark_results(args.parse)
+        return
 
     # Get system information
     system_info = get_system_info()
