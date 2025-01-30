@@ -154,7 +154,7 @@ def benchmark_generation(
 
     # Set up client
     if model_type == "openai":
-        client = OpenAI()
+        client = OpenAI(base_url=api_base) if api_base else OpenAI()
         effective_api_base = client.base_url
     elif model_type == "ollama":
         effective_api_base = api_base or "http://localhost:11434"
@@ -303,7 +303,7 @@ def main():
         "--url",
         "-u",
         type=str,
-        help="API base URL (for Ollama, defaults to http://localhost:11434)",
+        help="API base URL (for OpenAI or Ollama). Defaults to standard OpenAI URL or http://localhost:11434 for Ollama",
         dest="api_base",
     )
     parser.add_argument(
