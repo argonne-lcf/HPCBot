@@ -155,7 +155,7 @@ def benchmark_generation(
     # Set up client
     if model_type == "openai":
         client = OpenAI(base_url=api_base) if api_base else OpenAI()
-        effective_api_base = client.base_url
+        effective_api_base = str(client.base_url)  # Convert URL to string
     elif model_type == "ollama":
         effective_api_base = api_base or "http://localhost:11434"
     else:
