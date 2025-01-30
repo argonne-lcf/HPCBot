@@ -6,6 +6,14 @@ from openai import OpenAI
 import requests
 import argparse
 import logging
+import platform
+import psutil
+import json
+from pathlib import Path
+import uuid
+from datetime import datetime
+import subprocess
+import shutil
 
 ModelType = Literal["openai", "ollama"]
 
@@ -18,6 +26,105 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
+def get_nvidia_gpu_info():
+    """Get NVIDIA GPU information using nvidia-smi."""
+    if not shutil.which("nvidia-smi"):
+        return []
+
+    try:
+        result = subprocess.run(
+            [
+                "nvidia-smi",
+                "--query-gpu=name,memory.total,driver_version",
+                "--format=csv,noheader,nounits",
+            ],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+        gpus = []
+        for line in result.stdout.strip().split("\n"):
+            if line:
+                name, memory, driver = line.split(", ")
+                gpus.append(
+                    {
+                        "name": name,
+                        "memory": float(memory) / 1024,  # Convert MB to GB
+                        "driver": driver,
+                    }
+                )
+        return gpus
+    except (subprocess.SubprocessError, ValueError):
+        return []
+
+
+def get_system_info():
+    """Get system information including CPU, GPU, and memory."""
+    info = {
+        "hostname": platform.node(),
+        "platform": platform.platform(),
+        "python_version": platform.python_version(),
+        "cpu": {
+            "processor": platform.processor(),
+            "cores": psutil.cpu_count(logical=False),
+            "threads": psutil.cpu_count(logical=True),
+        },
+        "memory": {
+            "total": psutil.virtual_memory().total / (1024**3),  # GB
+            "available": psutil.virtual_memory().available / (1024**3),  # GB
+        },
+        "gpu": get_nvidia_gpu_info(),
+    }
+    return info
+
+
+def save_benchmark_results(results: dict, system_info: dict, output_dir: Path):
+    """Save benchmark results and system info to a JSON file."""
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    run_id = str(uuid.uuid4())[:8]
+    filename = f"benchmark_{timestamp}_{run_id}.json"
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_file = output_dir / filename
+
+    full_results = {
+        "timestamp": timestamp,
+        "run_id": run_id,
+        "system_info": system_info,
+        "benchmark_results": results,
+    }
+
+    with open(output_file, "w") as f:
+        json.dump(full_results, f, indent=2)
+
+    return output_file
+
+
+def save_model_response(response_text: str, model_info: dict, output_dir: Path):
+    """Save model response to a log file with timestamp and model info."""
+    output_dir.mkdir(parents=True, exist_ok=True)
+    log_file = output_dir / "responses.log"
+
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    header = (
+        f"\n{'='*80}\n"
+        f"Timestamp: {timestamp}\n"
+        f"Model: {model_info['model_name']} ({model_info['model_type']})\n"
+        f"Prompt: {model_info['prompt']}\n"
+        f"{'-'*80}\n"
+    )
+
+    with open(log_file, "a", encoding="utf-8") as f:
+        f.write(header)
+        f.write(response_text)
+        f.write("\n")
+
+
+def estimate_tokens(text: str) -> float:
+    """Estimate number of tokens from character count using 4 chars/token ratio."""
+    return len(text) / 4
+
+
 def benchmark_generation(
     model_name: str,
     prompt: str,
@@ -25,6 +132,7 @@ def benchmark_generation(
     num_runs: int = 3,
     max_tokens: int = 100,
     api_base: Optional[str] = None,
+    output_dir: Optional[Path] = None,
 ) -> dict:
     """
     Benchmark an LLM's generation performance.
@@ -36,6 +144,7 @@ def benchmark_generation(
         num_runs: Number of benchmark runs to average over
         max_tokens: Maximum number of tokens to generate
         api_base: Optional API base URL (mainly for Ollama)
+        output_dir: Optional directory to save response logs
 
     Returns:
         Dictionary containing benchmark results
@@ -46,10 +155,17 @@ def benchmark_generation(
     # Set up client
     if model_type == "openai":
         client = OpenAI()
+        effective_api_base = client.base_url
     elif model_type == "ollama":
-        api_base = api_base or "http://localhost:11434"
+        effective_api_base = api_base or "http://localhost:11434"
     else:
         raise ValueError(f"Unknown model type: {model_type}")
+
+    model_info = {
+        "model_name": model_name,
+        "model_type": model_type,
+        "prompt": prompt,
+    }
 
     logger.info(f"Running {num_runs} benchmark iterations...")
     for i in range(num_runs):
@@ -64,11 +180,13 @@ def benchmark_generation(
                 max_tokens=max_tokens,
                 temperature=0.7,
             )
-            generated_tokens = response.usage.completion_tokens
+            generated_text = response.choices[0].message.content
+            # Use character-based estimation instead of API's token count
+            generated_tokens = estimate_tokens(generated_text)
 
         else:  # ollama
             response = requests.post(
-                f"{api_base}/api/generate",
+                f"{effective_api_base}/api/generate",
                 json={
                     "model": model_name,
                     "prompt": prompt,
@@ -81,9 +199,12 @@ def benchmark_generation(
             )
             response.raise_for_status()
             data = response.json()
-            # Ollama doesn't provide token counts directly, so we estimate from response length
-            # This is a rough approximation
-            generated_tokens = len(data["response"].split()) * 1.3
+            generated_text = data["response"]
+            generated_tokens = estimate_tokens(generated_text)
+
+        # Save response if output directory is provided
+        if output_dir:
+            save_model_response(generated_text, model_info, output_dir)
 
         end_time = time.time()
         duration = end_time - start_time
@@ -102,24 +223,34 @@ def benchmark_generation(
     avg_time = statistics.mean(times)
     avg_tokens_per_second = avg_tokens / avg_time
 
-    # Calculate best performance
-    min_time = min(times)
-    best_run_idx = times.index(min_time)
-    best_tokens = token_counts[best_run_idx]
-    best_tokens_per_second = best_tokens / min_time
+    # Calculate tokens per second for each run
+    tokens_per_second_runs = [
+        tokens / time for tokens, time in zip(token_counts, times)
+    ]
+
+    # Find max and min performance
+    max_tokens_per_second = max(tokens_per_second_runs)
+    min_tokens_per_second = min(tokens_per_second_runs)
 
     results = {
         "model_name": model_name,
         "model_type": model_type,
+        "api_base": effective_api_base,
+        "max_tokens": max_tokens,
+        "prompt": prompt,
         "num_runs": num_runs,
         "average_tokens": avg_tokens,
         "average_time": avg_time,
         "tokens_per_second": avg_tokens_per_second,
-        "best_time": min_time,
-        "best_tokens": best_tokens,
-        "best_tokens_per_second": best_tokens_per_second,
+        "max_tokens_per_second": max_tokens_per_second,
+        "min_tokens_per_second": min_tokens_per_second,
         "individual_runs": [
-            {"tokens": t, "time": tim} for t, tim in zip(token_counts, times)
+            {
+                "tokens": t,
+                "time": tim,
+                "tokens_per_second": t / tim,
+            }
+            for t, tim in zip(token_counts, times)
         ],
     }
 
@@ -129,44 +260,70 @@ def benchmark_generation(
 def main():
     parser = argparse.ArgumentParser(description="Benchmark LLM generation performance")
     parser.add_argument(
-        "--model-name",
+        "--model",
+        "-m",
         type=str,
         required=True,
         help="Name of the model (e.g., gpt-3.5-turbo for OpenAI or llama2 for Ollama)",
+        dest="model_name",
     )
     parser.add_argument(
-        "--model-type",
+        "--server",
+        "-s",
         type=str,
         choices=["openai", "ollama"],
         required=True,
-        help="Type of model to benchmark",
+        help="Server to use (openai or ollama)",
+        dest="model_type",
     )
     parser.add_argument(
         "--prompt",
+        "-p",
         type=str,
-        default="Write a short story about a robot:",
+        default="Write a motivational poem about using AI for science.",
         help="Prompt to use for generation",
     )
     parser.add_argument(
-        "--num-runs",
+        "--runs",
+        "-r",
         type=int,
         default=3,
         help="Number of benchmark runs to perform",
+        dest="num_runs",
     )
     parser.add_argument(
-        "--max-tokens",
+        "--tokens",
+        "-t",
         type=int,
         default=100,
         help="Maximum number of tokens to generate",
+        dest="max_tokens",
     )
     parser.add_argument(
-        "--api-base",
+        "--url",
+        "-u",
         type=str,
         help="API base URL (for Ollama, defaults to http://localhost:11434)",
+        dest="api_base",
+    )
+    parser.add_argument(
+        "--output",
+        "-o",
+        type=str,
+        default="results",
+        help="Directory to save benchmark results (default: results)",
+        dest="output_dir",
     )
 
     args = parser.parse_args()
 
+    # Get system information
+    system_info = get_system_info()
+
+    # Create output directory
+    output_dir = Path(args.output_dir)
+
+    # Run benchmark
     results = benchmark_generation(
         model_name=args.model_name,
         prompt=args.prompt,
@@ -174,16 +331,25 @@ def main():
         num_runs=args.num_runs,
         max_tokens=args.max_tokens,
         api_base=args.api_base,
+        output_dir=output_dir,  # Pass output directory to save responses
     )
 
+    # Save results to file
+    output_file = save_benchmark_results(results, system_info, output_dir)
+
+    # Log results to console
     logger.info("\nBenchmark Results:")
     logger.info(f"Model: {results['model_name']} ({results['model_type']})")
+    logger.info(f"API Base: {results['api_base']}")
+    logger.info(f"Max tokens: {results['max_tokens']}")
+    logger.info(f"Prompt: {results['prompt']}")
     logger.info(f"Average tokens generated: {results['average_tokens']:.1f}")
     logger.info(f"Average time: {results['average_time']:.2f}s")
     logger.info(f"Average tokens per second: {results['tokens_per_second']:.2f}")
-    logger.info("\nBest Performance:")
-    logger.info(f"Best time: {results['best_time']:.2f}s")
-    logger.info(f"Best tokens per second: {results['best_tokens_per_second']:.2f}")
+    logger.info("\nPerformance Range:")
+    logger.info(f"Max tokens per second: {results['max_tokens_per_second']:.2f}")
+    logger.info(f"Min tokens per second: {results['min_tokens_per_second']:.2f}")
+    logger.info(f"\nResults saved to: {output_file}")
 
 
 if __name__ == "__main__":
