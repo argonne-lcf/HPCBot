@@ -109,7 +109,7 @@ def save_model_response(response_text: str, model_info: dict, output_dir: Path):
     header = (
         f"\n{'='*80}\n"
         f"Timestamp: {timestamp}\n"
-        f"Model: {model_info['model_name']} ({model_info['model_type']})\n"
+        f"Model: {model_info['model_name']} ({model_info['server']})\n"
         f"Prompt: {model_info['prompt']}\n"
         f"{'-'*80}\n"
     )
@@ -128,7 +128,7 @@ def estimate_tokens(text: str) -> float:
 def benchmark_generation(
     model_name: str,
     prompt: str,
-    model_type: ModelType,
+    server: ModelType,
     num_runs: int = 3,
     max_tokens: int = 100,
     api_base: Optional[str] = None,
@@ -140,7 +140,7 @@ def benchmark_generation(
     Args:
         model_name: Name of the model to benchmark (e.g. "gpt-3.5-turbo" or "llama2")
         prompt: Input prompt to generate from
-        model_type: Type of model - either "openai" or "ollama"
+        server: Type of model - either "openai" or "ollama"
         num_runs: Number of benchmark runs to average over
         max_tokens: Maximum number of tokens to generate
         api_base: Optional API base URL (mainly for Ollama)
@@ -153,17 +153,17 @@ def benchmark_generation(
     token_counts = []
 
     # Set up client
-    if model_type == "openai":
+    if server == "openai":
         client = OpenAI(base_url=api_base) if api_base else OpenAI()
         effective_api_base = str(client.base_url)  # Convert URL to string
-    elif model_type == "ollama":
+    elif server == "ollama":
         effective_api_base = api_base or "http://localhost:11434"
     else:
-        raise ValueError(f"Unknown model type: {model_type}")
+        raise ValueError(f"Unknown model type: {server}")
 
     model_info = {
         "model_name": model_name,
-        "model_type": model_type,
+        "server": server,
         "prompt": prompt,
     }
 
@@ -173,15 +173,35 @@ def benchmark_generation(
 
         start_time = time.time()
 
-        if model_type == "openai":
-            response = client.chat.completions.create(
-                model=model_name,
-                messages=[{"role": "user", "content": prompt}],
-                max_tokens=max_tokens,
-                temperature=0.7,
-            )
+        if server == "openai":
+            try:
+                # First try with all parameters
+                response = client.chat.completions.create(
+                    model=model_name,
+                    messages=[{"role": "user", "content": prompt}],
+                    max_tokens=max_tokens,
+                    temperature=0.7,
+                )
+            except openai.BadRequestError as e:
+                error_msg = str(e)
+                try:
+                    # Retry with minimal parameters if we get parameter errors
+                    if "max_tokens" in error_msg or "temperature" in error_msg:
+                        logger.warning(
+                            f"Model {model_name} doesn't support some parameters. "
+                            "Proceeding with defaults."
+                        )
+                        response = client.chat.completions.create(
+                            model=model_name,
+                            messages=[{"role": "user", "content": prompt}],
+                        )
+                    else:
+                        raise
+                except Exception as e2:
+                    logger.error(f"Failed to generate with {model_name}: {str(e2)}")
+                    raise
+
             generated_text = response.choices[0].message.content
-            # Use character-based estimation instead of API's token count
             generated_tokens = estimate_tokens(generated_text)
 
         else:  # ollama
@@ -234,7 +254,7 @@ def benchmark_generation(
 
     results = {
         "model_name": model_name,
-        "model_type": model_type,
+        "server": server,
         "api_base": effective_api_base,
         "max_tokens": max_tokens,
         "prompt": prompt,
@@ -257,11 +277,14 @@ def benchmark_generation(
     return results
 
 
-def parse_benchmark_results(results_dir: Union[str, Path]) -> None:
+def parse_benchmark_results(
+    results_dir: Union[str, Path], markdown: bool = False
+) -> None:
     """Parse benchmark result files and display a summary table.
 
     Args:
         results_dir: Directory containing benchmark JSON result files
+        markdown: If True, save results in markdown format to results.md
     """
     results_dir = Path(results_dir)
     if not results_dir.exists():
@@ -278,7 +301,8 @@ def parse_benchmark_results(results_dir: Union[str, Path]) -> None:
                 system = result["system_info"]
                 data.append(
                     {
-                        "model": f"{benchmark['model_name']} ({benchmark['model_type']})",
+                        "model": benchmark["model_name"],
+                        "server": benchmark["server"],
                         "hostname": system["hostname"],
                         "max_tokens_per_sec": f"{benchmark['max_tokens_per_second']:.2f}",
                         "timestamp": result["timestamp"],
@@ -295,34 +319,61 @@ def parse_benchmark_results(results_dir: Union[str, Path]) -> None:
     # Sort by timestamp
     data.sort(key=lambda x: x["timestamp"])
 
-    # Print table
-    headers = ["Model", "Hostname", "Max Tokens/sec"]
-    col_widths = [
-        max(len(str(row["model"])) for row in data + [{"model": "Model"}]),
-        max(len(str(row["hostname"])) for row in data + [{"hostname": "Hostname"}]),
-        max(
-            len(str(row["max_tokens_per_sec"]))
-            for row in data + [{"max_tokens_per_sec": "Max Tokens/sec"}]
-        ),
-    ]
+    headers = ["Model", "Server", "Hostname", "Max Tokens/sec"]
 
-    # Print header
-    header_line = " | ".join(
-        header.ljust(width) for header, width in zip(headers, col_widths)
-    )
-    separator = "-" * len(header_line)
-    print(separator)
-    print(header_line)
-    print(separator)
-
-    # Print data rows
-    for row in data:
-        print(
-            f"{row['model'].ljust(col_widths[0])} | "
-            f"{row['hostname'].ljust(col_widths[1])} | "
-            f"{row['max_tokens_per_sec'].rjust(col_widths[2])}"
+    if markdown:
+        # Create markdown table
+        table_lines = []
+        table_lines.append("| " + " | ".join(headers) + " |")
+        table_lines.append(
+            "|" + "|".join("-" * (len(header) + 2) for header in headers) + "|"
         )
-    print(separator)
+
+        for row in data:
+            table_lines.append(
+                f"| {row['model']} | "
+                f"{row['server']} | "
+                f"{row['hostname']} | "
+                f"{row['max_tokens_per_sec']} |"
+            )
+
+        # Save to results.md
+        output_file = results_dir / "results.md"
+        with open(output_file, "w") as f:
+            f.write("\n".join(table_lines) + "\n")
+        logger.info(f"Results saved to: {output_file}")
+
+    else:
+        # Print table suitable for terminal
+        # Create a dict with headers as values
+        header_dict = dict(
+            zip(["model", "server", "hostname", "max_tokens_per_sec"], headers)
+        )
+
+        # Calculate column widths
+        col_widths = [
+            max(len(str(row[key])) for row in [header_dict] + data)
+            for key in ["model", "server", "hostname", "max_tokens_per_sec"]
+        ]
+
+        # Print header
+        header_line = " | ".join(
+            header.ljust(width) for header, width in zip(headers, col_widths)
+        )
+        separator = "-" * len(header_line)
+        print(separator)
+        print(header_line)
+        print(separator)
+
+        # Print data rows
+        for row in data:
+            print(
+                f"{row['model'].ljust(col_widths[0])} | "
+                f"{row['server'].ljust(col_widths[1])} | "
+                f"{row['hostname'].ljust(col_widths[2])} | "
+                f"{row['max_tokens_per_sec'].rjust(col_widths[3])}"
+            )
+        print(separator)
 
 
 def main():
@@ -331,7 +382,8 @@ def main():
         "--model",
         "-m",
         type=str,
-        required=True,
+        default="llama2",
+        required=False,
         help="Name of the model (e.g., gpt-3.5-turbo for OpenAI or llama2 for Ollama)",
         dest="model_name",
     )
@@ -340,9 +392,10 @@ def main():
         "-s",
         type=str,
         choices=["openai", "ollama"],
-        required=True,
+        default="ollama",
+        required=False,
         help="Server to use (openai or ollama)",
-        dest="model_type",
+        dest="server",
     )
     parser.add_argument(
         "--prompt",
@@ -388,11 +441,17 @@ def main():
         type=str,
         help="Parse and display results from the specified directory",
     )
+    parser.add_argument(
+        "--markdown",
+        "-M",
+        action="store_true",
+        help="Save results in markdown format to results.md",
+    )
 
     args = parser.parse_args()
 
     if args.parse:
-        parse_benchmark_results(args.parse)
+        parse_benchmark_results(args.parse, markdown=args.markdown)
         return
 
     # Get system information
@@ -405,7 +464,7 @@ def main():
     results = benchmark_generation(
         model_name=args.model_name,
         prompt=args.prompt,
-        model_type=args.model_type,
+        server=args.server,
         num_runs=args.num_runs,
         max_tokens=args.max_tokens,
         api_base=args.api_base,
@@ -417,7 +476,7 @@ def main():
 
     # Log results to console
     logger.info("\nBenchmark Results:")
-    logger.info(f"Model: {results['model_name']} ({results['model_type']})")
+    logger.info(f"Model: {results['model_name']} ({results['server']})")
     logger.info(f"API Base: {results['api_base']}")
     logger.info(f"Max tokens: {results['max_tokens']}")
     logger.info(f"Prompt: {results['prompt']}")
