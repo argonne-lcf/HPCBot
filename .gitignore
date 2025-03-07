@@ -162,3 +162,4 @@ cython_debug/
 #.idea/
 
 chromaDB/
+access_token.txt
