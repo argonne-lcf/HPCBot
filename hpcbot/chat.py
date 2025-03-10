@@ -61,10 +61,12 @@ class ChatBot:
 
             loaders = [txt_loader, pdf_loader, md_loader, rst_loader]
 
+            # load the whole document
             documents = []
             for loader in loaders:
                 docs = loader.load()  # Load each file as a full document
                 documents.extend(docs) 
+
             """    
             # Combine all documents
             loader = (
@@ -80,9 +82,6 @@ class ChatBot:
             )
             documents = text_splitter.split_documents(loader)
             """
-            # Not-spliting
-             
-
             # Create embeddings and vector store
             db = Chroma.from_documents(
                 documents,
