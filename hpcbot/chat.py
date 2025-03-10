@@ -59,6 +59,13 @@ class ChatBot:
                 self.document_dir, glob="**/*.rst", loader_cls=UnstructuredRSTLoader
             )
 
+            loaders = [txt_loader, pdf_loader, md_loader, rst_loader]
+
+            documents = []
+            for loader in loaders:
+                docs = loader.load()  # Load each file as a full document
+                documents.extend(docs) 
+            """    
             # Combine all documents
             loader = (
                 txt_loader.load()
@@ -66,10 +73,15 @@ class ChatBot:
                 + md_loader.load()
                 + rst_loader.load()
             )
+            # Split
+            
             text_splitter = RecursiveCharacterTextSplitter(
                 chunk_size=1500, chunk_overlap=100
             )
             documents = text_splitter.split_documents(loader)
+            """
+            # Not-spliting
+             
 
             # Create embeddings and vector store
             db = Chroma.from_documents(
@@ -79,7 +91,7 @@ class ChatBot:
             )
             db.persist()
 
-        return db.as_retriever(search_type="similarity", search_kwargs={"k": 10})
+        return db.as_retriever(search_type="similarity", search_kwargs={"k": 1})
 
     def format_docs(self, docs):
         return "\n\n".join(doc.page_content for doc in docs)
