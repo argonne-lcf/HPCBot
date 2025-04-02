@@ -220,3 +220,6 @@ openai.yaml
 
 # Logs
 *.log
+
+# Sensitive information
+**/access_token.txt
