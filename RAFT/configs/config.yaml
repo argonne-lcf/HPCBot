@@ -1,0 +1,23 @@
+# set 0 if using inference, 1 if using local ollama
+is_local: 0
+
+# OpenAI API key - Replace with your actual API key or set via environment variable
+# You can set this via environment variable: export OPENAI_API_KEY="your-key-here"
+access_token: ""
+
+# inference endpoint
+#base_url: "https://data-portal-dev.cels.anl.gov/resource_server/sophia/vllm/v1"
+base_url: "https://api.openai.com/v1"
+
+# https://github.com/argonne-lcf/inference-endpoints/tree/main eg: "meta-llama/Meta-Llama-3.1-8B-Instruct", or "llama3.1" ... for local ollama
+# model: "meta-llama/Meta-Llama-3.1-8B-Instruct" 
+model: "gpt-4o"
+
+# Answer or context distractors
+distractor: "answer"
+
+# Documents directory
+document_dir: "./data/md/polaris/"
+
+# Generated QA save location, json file eg: "../output/QA_answer_distractor.json"
+out_dir: "./output/QA_answer_2510.json"
