@@ -223,3 +223,11 @@ openai.yaml
 
 # Sensitive information
 **/access_token.txt
+**/access_token
+**/*.key
+**/*.pem
+**/*.env
+**/*.env.*
+**/*.secret*
+**/*_key*
+**/*_token*
