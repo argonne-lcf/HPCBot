@@ -1,0 +1,28 @@
+task: llm-sft
+base_model: meta-llama/Meta-Llama-3.1-8B-Instruct
+project_name: HPCBot-FT-Llama-3-1-8B-Instruct-500-2-with-context
+log: wandb
+backend: local
+
+data:
+  path: /home/btrungvo/workspace/HPCBot/data/train/with_golden_context
+  train_split: train
+  valid_split: null
+  chat_template: null
+  column_mapping:
+    text_column: text
+
+params:
+  block_size: 1024
+  model_max_length: 8192
+  epochs: 400
+  batch_size: 2
+  lr: 1e-5
+  peft: true
+  quantization: null
+  target_modules: all-linear
+  padding: right
+  optimizer: paged_adamw_8bit
+  scheduler: cosine
+  gradient_accumulation: 8
+  mixed_precision: bf16
