@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSONL Support Email Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .controls {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .file-input-container {
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .file-input {
+            display: none;
+        }
+
+        .file-input-label {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #007bff;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 500;
+        }
+
+        .file-input-label:hover {
+            background: #0056b3;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-top: 1px solid #e1e5e9;
+            margin-top: 15px;
+        }
+
+        .pagination-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .page-size-control {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .page-size-control label {
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .page-size-control select {
+            padding: 6px 10px;
+            border: 2px solid #e1e5e9;
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .pagination {
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .pagination-info {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .pagination-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .page-btn {
+            padding: 8px 16px;
+            border: 2px solid #e1e5e9;
+            background: white;
+            color: #333;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .clear-filters {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .clear-filters:hover {
+            background: #c82333;
+        }
+
+        .results {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            font-size: 18px;
+        }
+
+        .email-item {
+            border-bottom: 1px solid #f0f0f0;
+            padding: 25px;
+            transition: background-color 0.2s;
+        }
+
+        .email-item:hover {
+            background-color: #f8f9fa;
+        }
+
+        .email-item:last-child {
+            border-bottom: none;
+        }
+
+        .email-header {
+            margin-bottom: 15px;
+        }
+
+        .email-subject {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .email-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .meta-label {
+            font-weight: 600;
+            color: #666;
+        }
+
+        .meta-value {
+            color: #333;
+        }
+
+        .ritm-badge {
+            background: #007bff;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .year-badge {
+            background: #28a745;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .email-body {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+            max-height: 400px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .email-body p {
+            margin-bottom: 10px;
+        }
+
+        .email-body div {
+            margin-bottom: 8px;
+        }
+
+        .email-body a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .email-body a:hover {
+            text-decoration: underline;
+        }
+
+        .email-body strong,
+        .email-body b {
+            font-weight: 700;
+        }
+
+        .email-body em,
+        .email-body i {
+            font-style: italic;
+        }
+
+        .email-body hr {
+            border: none;
+            border-top: 1px solid #dee2e6;
+            margin: 15px 0;
+        }
+
+        .email-body table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .email-body table,
+        .email-body th,
+        .email-body td {
+            border: 1px solid #dee2e6;
+        }
+
+        .email-body th,
+        .email-body td {
+            padding: 8px 12px;
+            text-align: left;
+        }
+
+
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #dc3545;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .email-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .pagination-controls {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .pagination {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .pagination-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .page-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>ALCF Support Email Viewer</h1>
+            <p>View and filter support emails from JSONL files</p>
+        </div>
+
+        <div class="controls">
+            <div class="file-input-container">
+                <label for="fileInput" class="file-input-label">
+                    📁 Choose JSONL File
+                </label>
+                <input type="file" id="fileInput" class="file-input" accept=".jsonl,.json">
+            </div>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="ritmFilter">Filter by RITM:</label>
+                    <input type="text" id="ritmFilter" placeholder="e.g., RITM0430179">
+                </div>
+
+                <div class="filter-group">
+                    <label for="yearFilter">Filter by Year:</label>
+                    <select id="yearFilter">
+                        <option value="">All Years</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="keywordFilter">Search in Body:</label>
+                    <input type="text" id="keywordFilter" placeholder="Enter keywords...">
+                </div>
+            </div>
+
+            <div class="stats">
+                <div>
+                    <span id="totalCount">0</span> total emails |
+                    <span id="filteredCount">0</span> matching filters
+                </div>
+                <div class="pagination-controls">
+                    <div class="page-size-control">
+                        <label for="pageSize">Per page:</label>
+                        <select id="pageSize">
+                            <option value="10">10</option>
+                            <option value="25" selected>25</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <button class="clear-filters" onclick="clearFilters()">Clear All Filters</button>
+                </div>
+            </div>
+
+            <div class="pagination" id="paginationTop" style="display: none;">
+                <div class="pagination-info">
+                    Page <span id="currentPage">1</span> of <span id="totalPages">1</span>
+                    (showing <span id="showingStart">0</span>-<span id="showingEnd">0</span>)
+                </div>
+                <div class="pagination-buttons">
+                    <button class="page-btn" onclick="goToPage(1)" id="firstBtn">First</button>
+                    <button class="page-btn" onclick="goToPage(currentPageNum - 1)" id="prevBtn">Previous</button>
+                    <button class="page-btn" onclick="goToPage(currentPageNum + 1)" id="nextBtn">Next</button>
+                    <button class="page-btn" onclick="goToPage(totalPagesNum)" id="lastBtn">Last</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="results" id="results">
+            <div class="no-data">
+                Please select a JSONL file to begin viewing emails.
+            </div>
+        </div>
+
+        <div class="pagination" id="paginationBottom" style="display: none;">
+            <div class="pagination-info">
+                Page <span id="currentPageBottom">1</span> of <span id="totalPagesBottom">1</span>
+                (showing <span id="showingStartBottom">0</span>-<span id="showingEndBottom">0</span>)
+            </div>
+            <div class="pagination-buttons">
+                <button class="page-btn" onclick="goToPage(1)">First</button>
+                <button class="page-btn" onclick="goToPage(currentPageNum - 1)">Previous</button>
+                <button class="page-btn" onclick="goToPage(currentPageNum + 1)">Next</button>
+                <button class="page-btn" onclick="goToPage(totalPagesNum)">Last</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let emailData = [];
+        let filteredData = [];
+        let currentPageNum = 1;
+        let totalPagesNum = 1;
+        let pageSize = 25;
+
+        const fileInput = document.getElementById('fileInput');
+        const ritmFilter = document.getElementById('ritmFilter');
+        const yearFilter = document.getElementById('yearFilter');
+        const keywordFilter = document.getElementById('keywordFilter');
+        const pageSizeSelect = document.getElementById('pageSize');
+        const results = document.getElementById('results');
+        const totalCount = document.getElementById('totalCount');
+        const filteredCount = document.getElementById('filteredCount');
+
+        fileInput.addEventListener('change', handleFileSelect);
+        ritmFilter.addEventListener('input', applyFilters);
+        yearFilter.addEventListener('change', applyFilters);
+        keywordFilter.addEventListener('input', debounce(applyFilters, 300));
+        pageSizeSelect.addEventListener('change', handlePageSizeChange);
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            if (!file.name.endsWith('.jsonl') && !file.name.endsWith('.json')) {
+                showError('Please select a JSONL or JSON file.');
+                return;
+            }
+
+            results.innerHTML = '<div class="loading">Loading and parsing file...</div>';
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                try {
+                    parseJSONL(e.target.result);
+                } catch (error) {
+                    showError('Error parsing file: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        function parseJSONL(content) {
+            try {
+                emailData = [];
+                const lines = content.trim().split('\n');
+
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (line) {
+                        try {
+                            const parsed = JSON.parse(line);
+                            emailData.push(parsed);
+                        } catch (e) {
+                            console.warn(`Error parsing line ${i + 1}:`, e);
+                        }
+                    }
+                }
+
+                if (emailData.length === 0) {
+                    showError('No valid email records found in the file.');
+                    return;
+                }
+
+                populateYearFilter();
+                filteredData = [...emailData];
+                currentPageNum = 1;
+                updatePagination();
+                updateDisplay();
+                updateStats();
+
+            } catch (error) {
+                showError('Error processing file: ' + error.message);
+            }
+        }
+
+        function populateYearFilter() {
+            const years = [...new Set(emailData.map(email => email.year).filter(year => year))].sort((a, b) => b - a);
+            yearFilter.innerHTML = '<option value="">All Years</option>';
+            years.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearFilter.appendChild(option);
+            });
+        }
+
+        function applyFilters() {
+            const ritmValue = ritmFilter.value.toLowerCase().trim();
+            const yearValue = yearFilter.value;
+            const keywordValue = keywordFilter.value.toLowerCase().trim();
+
+            filteredData = emailData.filter(email => {
+                // RITM filter
+                if (ritmValue && (!email.RITM || !email.RITM.toLowerCase().includes(ritmValue))) {
+                    return false;
+                }
+
+                // Year filter
+                if (yearValue && email.year != yearValue) {
+                    return false;
+                }
+
+                // Keyword filter in body
+                if (keywordValue && (!email.body || !email.body.toLowerCase().includes(keywordValue))) {
+                    return false;
+                }
+
+                return true;
+            });
+
+            currentPageNum = 1; // Reset to first page when filters change
+            updatePagination();
+            updateDisplay();
+            updateStats();
+        }
+
+        function handlePageSizeChange() {
+            pageSize = parseInt(pageSizeSelect.value);
+            currentPageNum = 1; // Reset to first page when page size changes
+            updatePagination();
+            updateDisplay();
+            updateStats();
+        }
+
+        function updatePagination() {
+            totalPagesNum = Math.max(1, Math.ceil(filteredData.length / pageSize));
+
+            // Ensure current page is within bounds
+            if (currentPageNum > totalPagesNum) {
+                currentPageNum = totalPagesNum;
+            }
+            if (currentPageNum < 1) {
+                currentPageNum = 1;
+            }
+
+            // Show/hide pagination controls
+            const showPagination = filteredData.length > pageSize;
+            document.getElementById('paginationTop').style.display = showPagination ? 'flex' : 'none';
+            document.getElementById('paginationBottom').style.display = showPagination ? 'flex' : 'none';
+
+            if (showPagination) {
+                updatePaginationDisplay();
+            }
+        }
+
+        function updatePaginationDisplay() {
+            const startIndex = (currentPageNum - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, filteredData.length);
+
+            // Update top pagination
+            document.getElementById('currentPage').textContent = currentPageNum;
+            document.getElementById('totalPages').textContent = totalPagesNum;
+            document.getElementById('showingStart').textContent = startIndex + 1;
+            document.getElementById('showingEnd').textContent = endIndex;
+
+            // Update bottom pagination
+            document.getElementById('currentPageBottom').textContent = currentPageNum;
+            document.getElementById('totalPagesBottom').textContent = totalPagesNum;
+            document.getElementById('showingStartBottom').textContent = startIndex + 1;
+            document.getElementById('showingEndBottom').textContent = endIndex;
+
+            // Update button states
+            const firstBtns = document.querySelectorAll('#firstBtn, .pagination-buttons button:first-child');
+            const prevBtns = document.querySelectorAll('#prevBtn, .pagination-buttons button:nth-child(2)');
+            const nextBtns = document.querySelectorAll('#nextBtn, .pagination-buttons button:nth-child(3)');
+            const lastBtns = document.querySelectorAll('#lastBtn, .pagination-buttons button:last-child');
+
+            firstBtns.forEach(btn => btn.disabled = currentPageNum === 1);
+            prevBtns.forEach(btn => btn.disabled = currentPageNum === 1);
+            nextBtns.forEach(btn => btn.disabled = currentPageNum === totalPagesNum);
+            lastBtns.forEach(btn => btn.disabled = currentPageNum === totalPagesNum);
+        }
+
+        function goToPage(pageNum) {
+            if (pageNum >= 1 && pageNum <= totalPagesNum) {
+                currentPageNum = pageNum;
+                updatePaginationDisplay();
+                updateDisplay();
+                // Scroll to top of results
+                document.getElementById('results').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function updateDisplay() {
+            if (filteredData.length === 0) {
+                results.innerHTML = '<div class="no-data">No emails match your current filters.</div>';
+                return;
+            }
+
+            // Get current page data
+            const startIndex = (currentPageNum - 1) * pageSize;
+            const endIndex = Math.min(startIndex + pageSize, filteredData.length);
+            const pageData = filteredData.slice(startIndex, endIndex);
+
+            const emailsHTML = pageData.map((email, index) => {
+                const date = email.date ? new Date(email.date).toLocaleString() : 'Unknown date';
+                const subject = email.subject || 'No subject';
+                const ritm = email.RITM || 'N/A';
+                const year = email.year || 'N/A';
+                const body = email.body || 'No body content';
+
+                // Sanitize HTML in body for safe display
+                const sanitizedBody = sanitizeHtml(body);
+
+                return `
+                    <div class="email-item">
+                        <div class="email-header">
+                            <div class="email-subject">${escapeHtml(subject)}</div>
+                            <div class="email-meta">
+                                <div class="meta-item">
+                                    <span class="meta-label">Date:</span>
+                                    <span class="meta-value">${date}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">RITM:</span>
+                                    <span class="ritm-badge">${ritm}</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Year:</span>
+                                    <span class="year-badge">${year}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="email-body">
+                            ${sanitizedBody}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            results.innerHTML = emailsHTML;
+        }
+
+
+
+        function updateStats() {
+            totalCount.textContent = emailData.length;
+            filteredCount.textContent = filteredData.length;
+        }
+
+        function clearFilters() {
+            ritmFilter.value = '';
+            yearFilter.value = '';
+            keywordFilter.value = '';
+            currentPageNum = 1;
+            applyFilters();
+        }
+
+        function showError(message) {
+            results.innerHTML = `<div class="error">⚠️ ${message}</div>`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function sanitizeHtml(html) {
+            // Remove potentially dangerous elements and attributes
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+
+            // Remove script tags and their content
+            const scripts = tempDiv.querySelectorAll('script');
+            scripts.forEach(script => script.remove());
+
+            // Remove dangerous attributes
+            const allElements = tempDiv.querySelectorAll('*');
+            allElements.forEach(element => {
+                // Remove event handlers and javascript: links
+                const attributes = Array.from(element.attributes);
+                attributes.forEach(attr => {
+                    if (attr.name.startsWith('on') ||
+                        (attr.name === 'href' && attr.value.startsWith('javascript:')) ||
+                        (attr.name === 'src' && attr.value.startsWith('javascript:'))) {
+                        element.removeAttribute(attr.name);
+                    }
+                });
+            });
+
+            return tempDiv.innerHTML;
+        }
+
+
+
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+
+</html>
